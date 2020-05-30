@@ -1,0 +1,21 @@
+{
+  "name": "@custom_modules/db_manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --declaration"
+  },
+  "author": "",
+  "license": "ISC",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "typescript": "^3.9.3",
+    "@types/mongodb": "^3.5.20"
+  },
+  "dependencies": {
+    "@custom_modules/models": "file:../models"
+  }
+}
