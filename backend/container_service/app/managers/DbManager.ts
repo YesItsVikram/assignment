@@ -33,4 +33,22 @@ export class DbManager {
       .insertOne(data);
     return ops[0];
   }
+
+  async deleteDocument<T extends Document>(
+    collection: string,
+    filter: Partial<T>
+  ) {
+    if (!this.containersDb) throw new Error(`DB IS NOT INITIALIZED`);
+
+    return this.containersDb.collection(collection).deleteOne(filter);
+  }
+
+  async getDocument<T extends Document>(
+    collection: string,
+    filter: Partial<T>
+  ): Promise<Document<T> | null> {
+    if (!this.containersDb) throw new Error(`DB IS NOT INITIALIZED`);
+
+    return this.containersDb.collection(collection).findOne<T>(filter);
+  }
 }
