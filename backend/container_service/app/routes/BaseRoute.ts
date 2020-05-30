@@ -16,6 +16,7 @@ export abstract class BaseRoute {
       this.server.app.get(this.routeName, (req, res) => this.handle(req, res));
   }
 
+  // Can add authentication, data validation etc
   handle(req: Request, res: Response) {
     this.handleRequest(req, res).catch((err) => {
       logger.error(`ERROR OCCURED IN BaseRoute.handle: `, err);

@@ -3,14 +3,24 @@ import { logger } from './utils/Logger';
 import { PORT } from './Constants';
 import bodyParser from 'body-parser';
 import { DbManager } from './managers/DbManager';
+import { InventoryService } from './services/InventoryService';
 
 export class Server {
   static Instance: Server | null = null;
 
-  private constructor(public app: Express, public dbManager: DbManager) {}
+  private constructor(
+    public app: Express,
+    public dbManager: DbManager,
+    public inventoryService: InventoryService
+  ) {}
 
-  static GetInstance(app: Express, dbManager: DbManager): Server {
-    if (!Server.Instance) Server.Instance = new Server(app, dbManager);
+  static GetInstance(
+    app: Express,
+    dbManager: DbManager,
+    inventoryService: InventoryService
+  ): Server {
+    if (!Server.Instance)
+      Server.Instance = new Server(app, dbManager, inventoryService);
     return Server.Instance;
   }
 
