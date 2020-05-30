@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { GetContainersRequest } from '../models/requests/GetContainersRequest';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
+import { Container } from '@custom_modules/models';
 
 export class GetContainersRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -11,7 +12,7 @@ export class GetContainersRoute extends BaseRoute {
         GetContainersRequest
       >(req);
 
-      const containers = await this.server.dbManager.getDocuments(
+      const containers = await this.server.dbManager.getDocuments<Container>(
         DatabaseConstants.ContainersDb.Collections.CONTAINERS,
         {},
         { skip: limit * (Math.max(pageNumber, 1) - 1), limit }

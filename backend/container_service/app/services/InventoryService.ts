@@ -1,5 +1,4 @@
-import { Container } from '../models/Container';
-import { Item } from '../models/Item';
+import { Container, Item } from '@custom_modules/models';
 
 export class InventoryService {
   async getItem(itemId: string): Promise<Item | null> {}

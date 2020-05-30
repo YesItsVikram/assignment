@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "tsc": "tsc",
+    "build": "tsc",
     "start": "node dist/index.js"
   },
   "keywords": [],
@@ -16,6 +16,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "@custom_modules/models": "file:../../custom_modules/models",
     "@custom_modules/utils": "file:../../custom_modules/utils",
     "express": "^4.17.1",
     "mongodb": "^3.5.8"

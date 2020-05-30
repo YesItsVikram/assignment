@@ -1,7 +1,7 @@
 import { MongoClient, Db, UpdateQuery, FindOneOptions } from 'mongodb';
 import { DatabaseConstants } from '../Constants';
 import { logger } from '@custom_modules/utils';
-import { Document, DocumentData } from '../models/Document';
+import { Document, DocumentData } from '@custom_modules/models';
 
 export class DbManager {
   containersDb: Db | null = null;

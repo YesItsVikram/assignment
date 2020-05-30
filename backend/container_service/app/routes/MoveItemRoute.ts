@@ -1,7 +1,7 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
 import { MoveItemRequest } from '../models/requests/MoveItemRequest';
-import { Container } from '../models/Container';
+import { Container } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';

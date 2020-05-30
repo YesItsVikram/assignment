@@ -1,5 +1,5 @@
 import { ResponseTypes } from '../Constants';
-import { Status } from '../models/Status';
+import { Status } from '@custom_modules/models';
 import { Response } from 'express';
 
 export class ResponseHandler {
