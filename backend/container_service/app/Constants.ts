@@ -28,4 +28,6 @@ export enum Routes {
 
   ADD_CONTAINER = '/addContainer',
   MOVE_CONTAINER = '/moveContainer',
+
+  GET_ROOT_CONTAINER = '/getRootContainer',
 }

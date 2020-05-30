@@ -8,12 +8,14 @@ import { ResponseHandler } from '../handlers/ResponseHandler';
 export abstract class BaseRoute {
   server: Server;
 
-  constructor(protected isGet: boolean, protected routeName: string) {
+  constructor(protected routeName: string, protected isGet: boolean) {
     if (!Server.Instance) throw new Error(`SERVER NOT INITIALIZED`);
     this.server = Server.Instance;
 
     if (this.isGet)
       this.server.app.get(this.routeName, (req, res) => this.handle(req, res));
+    else
+      this.server.app.post(this.routeName, (req, res) => this.handle(req, res));
   }
 
   // Can add authentication, data validation etc
