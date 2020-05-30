@@ -24,7 +24,6 @@ export enum Routes {
   DELETE_CONTAINER = '/deleteContainer',
 
   ADD_ITEM = '/addItem',
-  REMOVE_ITEM = '/removeItem',
   MOVE_ITEM = '/moveItem',
 
   ADD_CONTAINER = '/addContainer',

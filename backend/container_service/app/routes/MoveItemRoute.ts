@@ -4,6 +4,7 @@ import { MoveItemRequest } from '../models/requests/MoveItemRequest';
 import { Container } from '../models/Container';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
+import { ResponseHandler } from '../handlers/ResponseHandler';
 
 export class Route extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -19,7 +20,8 @@ export class Route extends BaseRoute {
 
       if (
         !container ||
-        (container.canHold !== 'INVENTORY' && container.canHold !== 'ALL')
+        (container.canHold !== 'INVENTORY' && container.canHold !== 'ALL') ||
+        container.holds === 'CONTAINERS'
       )
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
@@ -33,7 +35,12 @@ export class Route extends BaseRoute {
         item._id,
         container
       );
+
       await this.removeItemFromContainer(item._id, item.parentContainerId);
+      ResponseHandler.SendResponse(
+        res,
+        ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS)
+      );
     } catch (error) {
       throw error;
     }
