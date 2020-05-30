@@ -10,8 +10,12 @@ export class InventoryService {
   async getItem(itemId: string): Promise<Item | null> {
     const reqData: GetItemRequest = { id: itemId };
 
+    const baseRoute = InventoryServiceConstants.BASE_ROUTE;
     const url =
-      InventoryServiceConstants.GET_ITEM_ROUTE +
+      (baseRoute.charAt(baseRoute.length - 1) === '/'
+        ? baseRoute.substr(0, baseRoute.length - 1)
+        : baseRoute) +
+      InventoryServiceConstants.ROUTES.GET_ITEM +
       Request.getQueryParamsFromObject(reqData);
 
     const resp = await Request.HttpRequest<GetItemResponse>(url, {
@@ -27,9 +31,14 @@ export class InventoryService {
       itemId,
       containerId: container._id.toString(),
     };
+    const baseRoute = InventoryServiceConstants.BASE_ROUTE;
+    const url =
+      (baseRoute.charAt(baseRoute.length - 1) === '/'
+        ? baseRoute.substr(0, baseRoute.length - 1)
+        : baseRoute) + InventoryServiceConstants.ROUTES.ON_ITEM_MOVE;
 
     await Request.HttpRequest<OnItemMovedToContainerResponse>(
-      InventoryServiceConstants.ON_ITEM_MOVE_ROUTE,
+      url,
       { method: 'POST' },
       reqData
     );

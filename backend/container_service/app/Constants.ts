@@ -11,8 +11,11 @@ export const DatabaseConstants = {
 };
 
 export const InventoryServiceConstants = {
-  GET_ITEM_ROUTE: '' + process.env.IS_GET_ITEM_ROUTE,
-  ON_ITEM_MOVE_ROUTE: '' + process.env.IS_ON_ITEM_MOVE_ROUTE,
+  BASE_ROUTE: '' + process.env.INVENTORY_SERVICE_BASE_ROUTE,
+  ROUTES: {
+    GET_ITEM: '/getItem',
+    ON_ITEM_MOVE: '/onItemMovedToContainer',
+  },
 };
 
 export enum ResponseTypes {
