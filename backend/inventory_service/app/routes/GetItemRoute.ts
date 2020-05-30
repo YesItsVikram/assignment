@@ -1,6 +1,6 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { GetItemRequest } from '../models/requests/GetItemRequest';
+import { GetItemRequest } from '../models/requests/incoming/GetItemRequest';
 import { Item } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';

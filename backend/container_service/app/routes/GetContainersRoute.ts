@@ -1,6 +1,6 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { GetContainersRequest } from '../models/requests/GetContainersRequest';
+import { GetContainersRequest } from '../models/requests/incoming/GetContainersRequest';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 import { Container } from '@custom_modules/models';

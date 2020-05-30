@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { Container } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
-import { GetRootContainerRequest } from '../models/requests/GetRootContainerRequest';
+import { GetRootContainerRequest } from '../models/requests/incoming/GetRootContainerRequest';
 import { RouteError } from '../errors/RouteError';
 
 export class GetRootContainerRoute extends BaseRoute {

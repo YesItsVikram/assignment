@@ -1,6 +1,6 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { CreateContainerRequest } from '../models/requests/CreateContainterRequest';
+import { CreateContainerRequest } from '../models/requests/incoming/CreateContainterRequest';
 import { RouteError } from '../errors/RouteError';
 import { ResponseTypes, DatabaseConstants } from '../Constants';
 import { DocumentData, Container } from '@custom_modules/models';
