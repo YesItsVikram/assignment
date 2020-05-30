@@ -1,6 +1,6 @@
 import { Server } from '../Server';
 import { Request, Response } from 'express';
-import { logger } from '../utils/Logger';
+import { logger } from '@custom_modules/utils';
 import { RouteError } from '../errors/RouteError';
 import { ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';

@@ -1,5 +1,5 @@
 import { Express } from 'express';
-import { logger } from './utils/Logger';
+import { logger } from '@custom_modules/utils';
 import { PORT } from './Constants';
 import bodyParser from 'body-parser';
 import { DbManager } from './managers/DbManager';

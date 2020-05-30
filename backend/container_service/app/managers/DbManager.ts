@@ -1,6 +1,6 @@
 import { MongoClient, Db, UpdateQuery, FindOneOptions } from 'mongodb';
 import { DatabaseConstants } from '../Constants';
-import { logger } from '../utils/Logger';
+import { logger } from '@custom_modules/utils';
 import { Document, DocumentData } from '../models/Document';
 
 export class DbManager {

@@ -1,4 +1,4 @@
-import { logger } from './utils/Logger';
+import { logger } from '@custom_modules/utils';
 import { Factory } from './Factory';
 
 const server = Factory.GetServer();
