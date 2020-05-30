@@ -1,2 +1,2 @@
 export { logger } from './Logger';
-export { Request } from './Request';
+export { Request, RequestOptions } from './Request';

@@ -1,18 +1,27 @@
 import { RequestOptions, request as httpsRequest } from 'https';
 import { request as httpRequest } from 'http';
 import { logger } from './Logger';
+import { URL } from 'url';
+
+export { RequestOptions } from 'https';
 
 export class Request {
-  static HttpRequest<T>(reqOptions: RequestOptions, reqData: any): Promise<T> {
+  static HttpRequest<T>(
+    url: string | URL,
+    reqOptions: RequestOptions,
+    reqData: any = {}
+  ): Promise<T> {
     return new Promise((resolve, reject) => {
       try {
         logger.info('Request.HttpRequest');
 
         reqOptions.timeout = 10000;
 
-        logger.info(`Request options: ${JSON.stringify(reqOptions)}`);
+        logger.info(
+          `Url: ${url}, Request options: ${JSON.stringify(reqOptions)}`
+        );
 
-        const httpReq = httpRequest(reqOptions, (res) => {
+        const httpReq = httpRequest(url, reqOptions, (res) => {
           res.setEncoding('utf8');
 
           let data = '';
@@ -52,16 +61,22 @@ export class Request {
     });
   }
 
-  static HttpsRequest<T>(reqOptions: RequestOptions, reqData: any): Promise<T> {
+  static HttpsRequest<T>(
+    url: string | URL,
+    reqOptions: RequestOptions,
+    reqData: any = {}
+  ): Promise<T> {
     return new Promise((resolve, reject) => {
       try {
         logger.info('Request.HttpsRequest');
 
         reqOptions.timeout = 10000;
 
-        logger.info(`Request options: ${JSON.stringify(reqOptions)}`);
+        logger.info(
+          `Url: ${url}, Request options: ${JSON.stringify(reqOptions)}`
+        );
 
-        const httpsReq = httpsRequest(reqOptions, (res) => {
+        const httpsReq = httpsRequest(url, reqOptions, (res) => {
           res.setEncoding('utf8');
 
           let data = '';

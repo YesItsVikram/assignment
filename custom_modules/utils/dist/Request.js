@@ -5,13 +5,13 @@ const https_1 = require("https");
 const http_1 = require("http");
 const Logger_1 = require("./Logger");
 class Request {
-    static HttpRequest(reqOptions, reqData) {
+    static HttpRequest(url, reqOptions, reqData = {}) {
         return new Promise((resolve, reject) => {
             try {
                 Logger_1.logger.info('Request.HttpRequest');
                 reqOptions.timeout = 10000;
-                Logger_1.logger.info(`Request options: ${JSON.stringify(reqOptions)}`);
-                const httpReq = http_1.request(reqOptions, (res) => {
+                Logger_1.logger.info(`Url: ${url}, Request options: ${JSON.stringify(reqOptions)}`);
+                const httpReq = http_1.request(url, reqOptions, (res) => {
                     res.setEncoding('utf8');
                     let data = '';
                     res.on('data', (chunks) => {
@@ -44,13 +44,13 @@ class Request {
             }
         });
     }
-    static HttpsRequest(reqOptions, reqData) {
+    static HttpsRequest(url, reqOptions, reqData = {}) {
         return new Promise((resolve, reject) => {
             try {
                 Logger_1.logger.info('Request.HttpsRequest');
                 reqOptions.timeout = 10000;
-                Logger_1.logger.info(`Request options: ${JSON.stringify(reqOptions)}`);
-                const httpsReq = https_1.request(reqOptions, (res) => {
+                Logger_1.logger.info(`Url: ${url}, Request options: ${JSON.stringify(reqOptions)}`);
+                const httpsReq = https_1.request(url, reqOptions, (res) => {
                     res.setEncoding('utf8');
                     let data = '';
                     res.on('data', (chunks) => {
