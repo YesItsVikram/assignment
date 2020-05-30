@@ -2,21 +2,21 @@ import { Express } from 'express';
 import { logger } from '@custom_modules/utils';
 import { PORT } from './Constants';
 import bodyParser from 'body-parser';
-import { DbManager } from './managers/DbManager';
 import { InventoryService } from './services/InventoryService';
+import { ContainerDbManager } from './managers/ContainerDbManager';
 
 export class Server {
   static Instance: Server | null = null;
 
   private constructor(
     public app: Express,
-    public dbManager: DbManager,
+    public containerDbManager: ContainerDbManager,
     public inventoryService: InventoryService
   ) {}
 
   static GetInstance(
     app: Express,
-    dbManager: DbManager,
+    dbManager: ContainerDbManager,
     inventoryService: InventoryService
   ): Server {
     if (!Server.Instance)
@@ -28,8 +28,9 @@ export class Server {
     try {
       logger.info(`Server.init`);
 
-      await this.dbManager.init();
+      await this.containerDbManager.init();
       logger.info(`Db initialized`);
+
       this.setMiddlewares();
 
       this.app.get('*', (req, res) => {

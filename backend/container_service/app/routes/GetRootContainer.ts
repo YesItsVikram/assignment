@@ -29,10 +29,11 @@ export class GetRootContainerRoute extends BaseRoute {
 
   private async getRootContainer(containerId: string): Promise<Container> {
     while (true) {
-      const container = await this.server.dbManager.getDocument<Container>(
-        DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-        { _id: containerId }
-      );
+      const container = await this.server.containerDbManager.getDocument<
+        Container
+      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
+        _id: containerId,
+      });
       if (!container)
         throw new RouteError(
           ResponseTypes.SOMETHING_WENT_WRONG,

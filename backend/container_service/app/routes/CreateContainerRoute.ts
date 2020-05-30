@@ -19,7 +19,7 @@ export class CreateContainerRoute extends BaseRoute {
       )
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
-      await this.server.dbManager.insertDocument(
+      await this.server.containerDbManager.insertDocument(
         DatabaseConstants.ContainersDb.Collections.CONTAINERS,
         this.getContainerData(params)
       );

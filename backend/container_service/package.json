@@ -16,6 +16,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "@custom_modules/db_manager": "file:../../custom_modules/db_manager",
     "@custom_modules/models": "file:../../custom_modules/models",
     "@custom_modules/utils": "file:../../custom_modules/utils",
     "express": "^4.17.1",

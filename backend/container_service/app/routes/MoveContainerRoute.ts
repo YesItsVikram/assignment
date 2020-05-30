@@ -13,10 +13,11 @@ export class MoveContainerRoute extends BaseRoute {
         MoveContainerRequest
       >(req);
 
-      const destContainer = await this.server.dbManager.getDocument<Container>(
-        DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-        { _id: destinationContainerId }
-      );
+      const destContainer = await this.server.containerDbManager.getDocument<
+        Container
+      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
+        _id: destinationContainerId,
+      });
 
       if (
         !destContainer ||
@@ -26,10 +27,9 @@ export class MoveContainerRoute extends BaseRoute {
       )
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
-      const container = await this.server.dbManager.getDocument<Container>(
-        DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-        { _id: id }
-      );
+      const container = await this.server.containerDbManager.getDocument<
+        Container
+      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, { _id: id });
 
       if (!container) throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
@@ -46,7 +46,7 @@ export class MoveContainerRoute extends BaseRoute {
   }
 
   private async updateContainer(containerId: string, destContainerId: string) {
-    await this.server.dbManager.updateDocument<Container>(
+    await this.server.containerDbManager.updateDocument<Container>(
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
       { _id: containerId },
       {
@@ -61,7 +61,7 @@ export class MoveContainerRoute extends BaseRoute {
     containerId: string,
     destContainer: Container
   ) {
-    await this.server.dbManager.updateDocument<Container>(
+    await this.server.containerDbManager.updateDocument<Container>(
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
       { _id: destContainer._id },
       {

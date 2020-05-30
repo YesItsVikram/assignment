@@ -11,10 +11,9 @@ export class GetContainerRoute extends BaseRoute {
     try {
       const { id } = this.getParams<GetContainerRequest>(req);
 
-      const container = await this.server.dbManager.getDocument<Container>(
-        DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-        { _id: id }
-      );
+      const container = await this.server.containerDbManager.getDocument<
+        Container
+      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, { _id: id });
 
       if (!container) throw new RouteError(ResponseTypes.INVALID_REQUEST);
 

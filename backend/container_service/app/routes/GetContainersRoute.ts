@@ -12,7 +12,9 @@ export class GetContainersRoute extends BaseRoute {
         GetContainersRequest
       >(req);
 
-      const containers = await this.server.dbManager.getDocuments<Container>(
+      const containers = await this.server.containerDbManager.getDocuments<
+        Container
+      >(
         DatabaseConstants.ContainersDb.Collections.CONTAINERS,
         {},
         { skip: limit * (Math.max(pageNumber, 1) - 1), limit }

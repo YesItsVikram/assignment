@@ -13,10 +13,11 @@ export class MoveItemRoute extends BaseRoute {
         req
       );
 
-      const container = await this.server.dbManager.getDocument<Container>(
-        DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-        { _id: destinationContainerId }
-      );
+      const container = await this.server.containerDbManager.getDocument<
+        Container
+      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
+        _id: destinationContainerId,
+      });
 
       if (
         !container ||
@@ -47,10 +48,11 @@ export class MoveItemRoute extends BaseRoute {
   }
 
   private async removeItemFromContainer(itemId: string, containerId: string) {
-    const container = await this.server.dbManager.getDocument<Container>(
-      DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-      { _id: containerId }
-    );
+    const container = await this.server.containerDbManager.getDocument<
+      Container
+    >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
+      _id: containerId,
+    });
 
     if (!container)
       throw new RouteError(
@@ -63,7 +65,7 @@ export class MoveItemRoute extends BaseRoute {
     // Container is empty now
     if (!container.itemIds.length) container.holds = 'NONE';
 
-    await this.server.dbManager.updateDocument<Container>(
+    await this.server.containerDbManager.updateDocument<Container>(
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
       { _id: containerId },
       {
@@ -76,7 +78,7 @@ export class MoveItemRoute extends BaseRoute {
   }
 
   private async addItemToContainer(itemId: string, container: Container) {
-    await this.server.dbManager.updateDocument<Container>(
+    await this.server.containerDbManager.updateDocument<Container>(
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
       { _id: container._id },
       {

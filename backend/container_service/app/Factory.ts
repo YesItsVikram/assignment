@@ -1,6 +1,5 @@
 import express from 'express';
 import { Server } from './Server';
-import { DbManager } from './managers/DbManager';
 import { InventoryService } from './services/InventoryService';
 import { CreateContainerRoute } from './routes/CreateContainerRoute';
 import { Routes } from './Constants';
@@ -10,14 +9,15 @@ import { GetContainersRoute } from './routes/GetContainersRoute';
 import { GetRootContainerRoute } from './routes/GetRootContainer';
 import { MoveContainerRoute } from './routes/MoveContainerRoute';
 import { MoveItemRoute } from './routes/MoveItemRoute';
+import { ContainerDbManager } from './managers/ContainerDbManager';
 
 export class Factory {
   static GetServer() {
     const app = express();
-    const dbManager = new DbManager();
+    const containerDbManager = new ContainerDbManager();
     const inventoryService = new InventoryService();
 
-    return Server.GetInstance(app, dbManager, inventoryService);
+    return Server.GetInstance(app, containerDbManager, inventoryService);
   }
 
   static InitAllRoutes() {
