@@ -11,14 +11,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@custom_modules/models": "git+https://a84b78e3d87c51d213d2dcf9b07cfe04bc198536:x-oauth-basic@github.com/YesItsVikram/ip_custom_models.git",
     "@types/express": "^4.17.6",
     "@types/mongodb": "^3.5.20",
-    "typescript": "^3.9.3",
-    "@custom_modules/models": "file:../../custom_modules/models"
+    "typescript": "^3.9.3"
   },
   "dependencies": {
-    "@custom_modules/db_manager": "file:../../custom_modules/db_manager",
-    "@custom_modules/utils": "file:../../custom_modules/utils",
+    "@custom_modules/db_manager": "git+https://a84b78e3d87c51d213d2dcf9b07cfe04bc198536:x-oauth-basic@github.com/YesItsVikram/ip_custom_db_manager.git",
+    "@custom_modules/utils": "git+https://a84b78e3d87c51d213d2dcf9b07cfe04bc198536:x-oauth-basic@github.com/YesItsVikram/ip_custom_utils.git",
     "express": "^4.17.1",
     "mongodb": "^3.5.8"
   }

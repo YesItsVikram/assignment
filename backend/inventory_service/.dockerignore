@@ -1,0 +1,10 @@
+.vscode
+
+app
+node_modules
+
+env
+tsconfig.json
+
+Dockerfile
+Dockerignore
