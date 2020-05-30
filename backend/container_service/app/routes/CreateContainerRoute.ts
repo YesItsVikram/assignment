@@ -13,11 +13,15 @@ export class Route extends BaseRoute {
       const params = this.getParams<CreateContainerRequest>(req);
       const { canHold } = params;
 
-      if (canHold !== 'CONTAINERS' && canHold !== 'INVENTORY')
+      if (
+        canHold !== 'CONTAINERS' &&
+        canHold !== 'INVENTORY' &&
+        canHold !== 'ALL'
+      )
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       await this.server.dbManager.insertDocument(
-        DatabaseConstants.ContainersDb.Collections.TREES,
+        DatabaseConstants.ContainersDb.Collections.CONTAINERS,
         this.getContainerData(params)
       );
 
@@ -39,7 +43,7 @@ export class Route extends BaseRoute {
       type,
       holds: 'NONE',
       containerIds: [],
-      ItemIds: [],
+      itemIds: [],
       canHold,
       createdAt: new Date(),
       updatedAt: new Date(),

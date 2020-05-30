@@ -6,7 +6,6 @@ export const DatabaseConstants = {
     Collections: {
       CONTAINERS: 'containers',
       METAS: 'metas',
-      TREES: 'trees',
     },
   },
 };

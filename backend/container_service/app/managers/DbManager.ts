@@ -1,4 +1,4 @@
-import { MongoClient, Db } from 'mongodb';
+import { MongoClient, Db, UpdateQuery } from 'mongodb';
 import { DatabaseConstants } from '../Constants';
 import { logger } from '../utils/Logger';
 import { Document, DocumentData } from '../models/Document';
@@ -50,5 +50,19 @@ export class DbManager {
     if (!this.containersDb) throw new Error(`DB IS NOT INITIALIZED`);
 
     return this.containersDb.collection(collection).findOne<T>(filter);
+  }
+
+  async updateDocument<T extends Document>(
+    collection: string,
+    filter: Partial<T>,
+    update: UpdateQuery<T>
+  ): Promise<Document<T> | null> {
+    if (!this.containersDb) throw new Error(`DB IS NOT INITIALIZED`);
+
+    const { value } = await this.containersDb
+      .collection(collection)
+      .findOneAndUpdate(filter, update, { returnOriginal: false });
+
+    return value || null;
   }
 }

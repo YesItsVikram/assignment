@@ -8,7 +8,6 @@ interface ItemBase extends Document {
   };
 
   parentContainerId?: string;
-  treeId?: string;
 }
 
 interface ItemDetails {

@@ -5,7 +5,6 @@ import { Container } from '../models/Container';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 import { RouteError } from '../errors/RouteError';
-import { Tree } from '../models/Tree';
 
 export class Route extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -23,12 +22,6 @@ export class Route extends BaseRoute {
         DatabaseConstants.ContainersDb.Collections.CONTAINERS,
         { _id: id }
       );
-
-      if (container.treeId)
-        await this.server.dbManager.deleteDocument<Tree>(
-          DatabaseConstants.ContainersDb.Collections.TREES,
-          { _id: container.treeId }
-        );
 
       ResponseHandler.SendResponse(
         res,

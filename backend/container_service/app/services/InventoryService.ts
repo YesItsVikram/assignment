@@ -1,7 +1,10 @@
 import { Container } from '../models/Container';
+import { Item } from '../models/Item';
 
 export class InventoryService {
-  addItemToContainer(itemId: string, container: Container) {}
+  async getItem(itemId: string): Promise<Item | null> {}
 
-  removeItemFromContainer(itemId: string) {}
+  async itemMovedToContainer(itemId: string, container: Container) {}
+
+  async itemRemovedFromContainer(itemId: string) {}
 }
