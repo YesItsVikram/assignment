@@ -1,3 +1,5 @@
+import { Optional } from './Custom';
+
 export type Document<T extends {} = {}> = T & {
   _id: string;
   createdAt: Date;
