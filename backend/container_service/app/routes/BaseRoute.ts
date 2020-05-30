@@ -6,7 +6,7 @@ import { ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 
 export abstract class BaseRoute {
-  private server: Server;
+  server: Server;
 
   constructor(protected isGet: boolean, protected routeName: string) {
     if (!Server.Instance) throw new Error(`SERVER NOT INITIALIZED`);
@@ -18,6 +18,13 @@ export abstract class BaseRoute {
 
   // Can add authentication, data validation etc
   handle(req: Request, res: Response) {
+    const params = this.getParams(req);
+
+    logger.info(
+      `BaseRoute.handle for route: ${this.routeName} and params: 
+      ${JSON.stringify(params)}`
+    );
+
     this.handleRequest(req, res).catch((err) => {
       logger.error(`ERROR OCCURED IN BaseRoute.handle: `, err);
       this.handleErrorResponse(res, err);
@@ -31,5 +38,9 @@ export abstract class BaseRoute {
     ResponseHandler.SendResponse(res, ResponseHandler.GetResponseStatus(type));
   }
 
-  abstract handleRequest(req: Request, res: Response): Promise<void>;
+  protected getParams<T = any>(req: Request): T {
+    return this.isGet ? req.query : req.body;
+  }
+
+  abstract async handleRequest(req: Request, res: Response): Promise<void>;
 }

@@ -12,5 +12,5 @@ export interface Container extends Document {
   ItemIds?: string[];
 
   parentContainerId?: string;
-  treeId: string;
+  treeId?: string;
 }
