@@ -1,8 +1,12 @@
 import { Document } from './Document';
 
+type Holdable = 'CONTAINERS' | 'INVENTORY';
+
 export interface Container extends Document {
   type: string;
-  holds: 'CONTAINERS' | 'INVENTORY' | 'NONE';
+
+  canHold: Holdable;
+  holds: Holdable | 'NONE';
 
   containerIds?: string[];
   ItemIds?: string[];
