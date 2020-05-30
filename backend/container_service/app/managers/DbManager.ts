@@ -1,4 +1,4 @@
-import { MongoClient, Db, UpdateQuery } from 'mongodb';
+import { MongoClient, Db, UpdateQuery, FindOneOptions } from 'mongodb';
 import { DatabaseConstants } from '../Constants';
 import { logger } from '../utils/Logger';
 import { Document, DocumentData } from '../models/Document';
@@ -50,6 +50,20 @@ export class DbManager {
     if (!this.containersDb) throw new Error(`DB IS NOT INITIALIZED`);
 
     return this.containersDb.collection(collection).findOne<T>(filter);
+  }
+
+  async getDocuments<T extends Document>(
+    collection: string,
+    filter: Partial<T>,
+    options: FindOneOptions
+  ): Promise<Document<T>[]> {
+    if (!this.containersDb) throw new Error(`DB IS NOT INITIALIZED`);
+
+    const cursor = this.containersDb
+      .collection(collection)
+      .find<T>(filter, options);
+
+    return cursor.toArray();
   }
 
   async updateDocument<T extends Document>(
