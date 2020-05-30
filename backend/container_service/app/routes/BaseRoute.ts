@@ -38,7 +38,7 @@ export abstract class BaseRoute {
     ResponseHandler.SendResponse(res, ResponseHandler.GetResponseStatus(type));
   }
 
-  protected getParams<T = any>(req: Request): T {
+  protected getParams<T = {}>(req: Request): T {
     return this.isGet ? req.query : req.body;
   }
 
