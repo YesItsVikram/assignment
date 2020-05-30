@@ -5,7 +5,7 @@ import { Container } from '../models/Container';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 
-export class Route extends BaseRoute {
+export class GetContainerRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
     try {
       const { id } = this.getParams<GetContainerRequest>(req);

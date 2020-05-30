@@ -6,7 +6,7 @@ import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 
-export class Route extends BaseRoute {
+export class MoveContainerRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
     try {
       const { id, destinationContainerId } = this.getParams<

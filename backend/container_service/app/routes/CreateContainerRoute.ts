@@ -7,7 +7,7 @@ import { DocumentData } from '../models/Document';
 import { Container } from '../models/Container';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 
-export class Route extends BaseRoute {
+export class CreateContainerRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
     try {
       const params = this.getParams<CreateContainerRequest>(req);

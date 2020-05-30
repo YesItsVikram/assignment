@@ -6,7 +6,7 @@ import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 import { RouteError } from '../errors/RouteError';
 
-export class Route extends BaseRoute {
+export class DeleteContainerRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
     try {
       const { id } = this.getParams<DeleteContainerRequest>(req);

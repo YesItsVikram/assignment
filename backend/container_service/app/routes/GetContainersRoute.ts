@@ -4,7 +4,7 @@ import { GetContainersRequest } from '../models/requests/GetContainersRequest';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 
-export class Route extends BaseRoute {
+export class GetContainersRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
     try {
       const { pageNumber = 1, limit = 10 } = this.getParams<
