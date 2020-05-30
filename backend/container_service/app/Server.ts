@@ -20,8 +20,11 @@ export class Server {
 
       await this.dbManager.init();
       logger.info(`Db initialized`);
-
       this.setMiddlewares();
+
+      this.app.get('*', (req, res) => {
+        res.send('Invalid Route');
+      });
 
       this.app.listen(PORT, () => {
         logger.info(`Server listening on port: ${PORT}`);

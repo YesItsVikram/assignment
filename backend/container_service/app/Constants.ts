@@ -9,3 +9,9 @@ export const DatabaseConstants = {
     },
   },
 };
+
+export enum ResponseTypes {
+  SUCCESS,
+  INVALID_REQUEST,
+  SOMETHING_WENT_WRONG,
+}
