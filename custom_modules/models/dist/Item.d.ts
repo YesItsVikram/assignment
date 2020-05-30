@@ -1,5 +1,4 @@
 import { Document } from './Document';
-import { ItemCategory } from './ItemCategory';
 interface ItemBase extends Document {
     category: {
         id: string;
@@ -8,7 +7,7 @@ interface ItemBase extends Document {
     parentContainerId?: string;
 }
 interface ItemDetails {
-    [key: string]: ItemCategory['schema']['type'];
+    [key: string]: any;
 }
-export declare type Item = ItemBase & ItemDetails;
+export declare type Item = ItemBase & Exclude<ItemDetails, ItemBase>;
 export {};

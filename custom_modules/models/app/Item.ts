@@ -11,7 +11,7 @@ interface ItemBase extends Document {
 }
 
 interface ItemDetails {
-  [key: string]: ItemCategory['schema']['type'];
+  [key: string]: any;
 }
 
-export type Item = ItemBase & ItemDetails;
+export type Item = ItemBase & Exclude<ItemDetails, ItemBase>;

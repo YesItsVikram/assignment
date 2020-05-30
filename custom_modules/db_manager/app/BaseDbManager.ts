@@ -56,6 +56,9 @@ export abstract class BaseDbManager {
   ): Promise<Document<T> | null> {
     if (!this.db) throw new Error(`DB IS NOT INITIALIZED`);
 
+    if (!update.$set) update.$set = {};
+    update.$set = { ...update.$set, updatedAt: new Date() };
+
     const { value } = await this.db
       .collection(collection)
       .findOneAndUpdate(filter, update, { returnOriginal: false });

@@ -10,6 +10,7 @@ export class ContainerDbManager extends BaseDbManager {
         DatabaseConstants.ContainersDb.URI,
         {
           useNewUrlParser: true,
+          useUnifiedTopology: true,
         }
       );
 

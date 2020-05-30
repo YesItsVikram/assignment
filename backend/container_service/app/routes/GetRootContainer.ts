@@ -5,6 +5,7 @@ import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 import { GetRootContainerRequest } from '../models/requests/incoming/GetRootContainerRequest';
 import { RouteError } from '../errors/RouteError';
+import { ObjectId } from 'mongodb';
 
 export class GetRootContainerRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -32,7 +33,7 @@ export class GetRootContainerRoute extends BaseRoute {
       const container = await this.server.containerDbManager.getDocument<
         Container
       >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
-        _id: containerId,
+        _id: new ObjectId(containerId),
       });
       if (!container)
         throw new RouteError(

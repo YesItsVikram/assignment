@@ -5,6 +5,7 @@ import { Container } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 import { RouteError } from '../errors/RouteError';
+import { ObjectId } from 'mongodb';
 
 export class DeleteContainerRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -13,13 +14,15 @@ export class DeleteContainerRoute extends BaseRoute {
 
       const container = await this.server.containerDbManager.getDocument<
         Container
-      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, { _id: id });
+      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
+        _id: new ObjectId(id),
+      });
       if (!container || !this.isContainerEmpty(container))
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       await this.server.containerDbManager.deleteDocument<Container>(
         DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-        { _id: id }
+        { _id: new ObjectId(id) }
       );
 
       ResponseHandler.SendResponse(

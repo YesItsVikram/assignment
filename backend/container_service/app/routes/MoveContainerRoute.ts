@@ -5,6 +5,7 @@ import { Container } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
+import { ObjectId } from 'mongodb';
 
 export class MoveContainerRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -16,7 +17,7 @@ export class MoveContainerRoute extends BaseRoute {
       const destContainer = await this.server.containerDbManager.getDocument<
         Container
       >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
-        _id: destinationContainerId,
+        _id: new ObjectId(destinationContainerId),
       });
 
       if (!destContainer || destContainer.canHold !== 'CONTAINERS')
@@ -24,12 +25,14 @@ export class MoveContainerRoute extends BaseRoute {
 
       const container = await this.server.containerDbManager.getDocument<
         Container
-      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, { _id: id });
+      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
+        _id: new ObjectId(id),
+      });
 
       if (!container) throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       await this.updateDestContainer(id, destContainer);
-      await this.updateContainer(id, destContainer._id);
+      await this.updateContainer(id, destContainer._id.toString());
 
       ResponseHandler.SendResponse(
         res,
@@ -43,7 +46,7 @@ export class MoveContainerRoute extends BaseRoute {
   private async updateContainer(containerId: string, destContainerId: string) {
     await this.server.containerDbManager.updateDocument<Container>(
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-      { _id: containerId },
+      { _id: new ObjectId(containerId) },
       {
         $set: {
           parentContainerId: destContainerId,
@@ -58,7 +61,7 @@ export class MoveContainerRoute extends BaseRoute {
   ) {
     await this.server.containerDbManager.updateDocument<Container>(
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-      { _id: destContainer._id },
+      { _id: new ObjectId(destContainer._id) },
       {
         $push: {
           containerIds: containerId,

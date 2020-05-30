@@ -10,6 +10,7 @@ export class InventoryDbManager extends BaseDbManager {
         DatabaseConstants.InventoryDb.URI,
         {
           useNewUrlParser: true,
+          useUnifiedTopology: true,
         }
       );
 

@@ -25,7 +25,7 @@ export class InventoryService {
   async itemMovedToContainer(itemId: string, container: Container) {
     const reqData: OnItemMovedToContainerRequest = {
       itemId,
-      containerId: container._id,
+      containerId: container._id.toString(),
     };
 
     await Request.HttpRequest<OnItemMovedToContainerResponse>(

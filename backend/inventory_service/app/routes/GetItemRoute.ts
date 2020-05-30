@@ -5,6 +5,7 @@ import { Item } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
+import { ObjectId } from 'mongodb';
 
 export class GetItemRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -13,7 +14,7 @@ export class GetItemRoute extends BaseRoute {
 
       const item = await this.server.inventoryDbManager.getDocument<Item>(
         DatabaseConstants.InventoryDb.Collections.ITEMS,
-        { _id: id }
+        { _id: new ObjectId(id) }
       );
 
       if (!item) throw new RouteError(ResponseTypes.INVALID_REQUEST);

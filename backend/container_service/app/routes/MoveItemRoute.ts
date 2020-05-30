@@ -5,6 +5,7 @@ import { Container } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
+import { ObjectId } from 'mongodb';
 
 export class MoveItemRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -16,7 +17,7 @@ export class MoveItemRoute extends BaseRoute {
       const container = await this.server.containerDbManager.getDocument<
         Container
       >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
-        _id: destinationContainerId,
+        _id: new ObjectId(destinationContainerId),
       });
 
       if (!container || container.canHold !== 'INVENTORY')
@@ -27,13 +28,16 @@ export class MoveItemRoute extends BaseRoute {
       if (!item || !item.parentContainerId)
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
-      await this.addItemToContainer(item._id, container);
+      await this.addItemToContainer(item._id.toString(), container);
       await this.server.inventoryService.itemMovedToContainer(
-        item._id,
+        item._id.toString(),
         container
       );
 
-      await this.removeItemFromContainer(item._id, item.parentContainerId);
+      await this.removeItemFromContainer(
+        item._id.toString(),
+        item.parentContainerId
+      );
       ResponseHandler.SendResponse(
         res,
         ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS)
@@ -47,7 +51,7 @@ export class MoveItemRoute extends BaseRoute {
     const container = await this.server.containerDbManager.getDocument<
       Container
     >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
-      _id: containerId,
+      _id: new ObjectId(containerId),
     });
 
     if (!container)
@@ -60,7 +64,7 @@ export class MoveItemRoute extends BaseRoute {
 
     await this.server.containerDbManager.updateDocument<Container>(
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-      { _id: containerId },
+      { _id: new ObjectId(containerId) },
       {
         $set: {
           itemIds: container.itemIds,
@@ -72,10 +76,10 @@ export class MoveItemRoute extends BaseRoute {
   private async addItemToContainer(itemId: string, container: Container) {
     await this.server.containerDbManager.updateDocument<Container>(
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
-      { _id: container._id },
+      { _id: new ObjectId(container._id) },
       {
         $push: {
-          itemIds: itemId,
+          itemIds: itemId.toString(),
         },
       }
     );

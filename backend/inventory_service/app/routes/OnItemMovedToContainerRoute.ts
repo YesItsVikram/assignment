@@ -5,6 +5,7 @@ import { Item } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
+import { ObjectId } from 'mongodb';
 
 export class OnItemMovedToContainerRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -15,7 +16,7 @@ export class OnItemMovedToContainerRoute extends BaseRoute {
 
       const item = await this.server.inventoryDbManager.getDocument<Item>(
         DatabaseConstants.InventoryDb.Collections.ITEMS,
-        { _id: itemId }
+        { _id: new ObjectId(itemId) }
       );
 
       if (!item) throw new RouteError(ResponseTypes.INVALID_REQUEST);
@@ -34,7 +35,7 @@ export class OnItemMovedToContainerRoute extends BaseRoute {
   private async updateItem(item: Item, containerId: string) {
     await this.server.inventoryDbManager.updateDocument<Item>(
       DatabaseConstants.InventoryDb.Collections.ITEMS,
-      { _id: item._id },
+      { _id: new ObjectId(item._id) },
       {
         $set: {
           parentContainerId: containerId,

@@ -5,6 +5,7 @@ import { Container } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 import { RouteError } from '../errors/RouteError';
+import { ObjectId } from 'mongodb';
 
 export class GetContainerRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -13,7 +14,9 @@ export class GetContainerRoute extends BaseRoute {
 
       const container = await this.server.containerDbManager.getDocument<
         Container
-      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, { _id: id });
+      >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {
+        _id: new ObjectId(id),
+      });
 
       if (!container) throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
