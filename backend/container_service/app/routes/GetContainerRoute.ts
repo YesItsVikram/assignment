@@ -4,6 +4,7 @@ import { GetContainerRequest } from '../models/requests/GetContainerRequest';
 import { Container } from '../models/Container';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
+import { RouteError } from '../errors/RouteError';
 
 export class GetContainerRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -15,13 +16,10 @@ export class GetContainerRoute extends BaseRoute {
         { _id: id }
       );
 
-      const type =
-        container === null
-          ? ResponseTypes.INVALID_REQUEST
-          : ResponseTypes.SUCCESS;
+      if (!container) throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       ResponseHandler.SendResponse(res, {
-        ...ResponseHandler.GetResponseStatus(type),
+        ...ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS),
         container,
       });
     } catch (error) {
