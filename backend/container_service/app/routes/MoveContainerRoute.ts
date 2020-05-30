@@ -19,12 +19,7 @@ export class MoveContainerRoute extends BaseRoute {
         _id: destinationContainerId,
       });
 
-      if (
-        !destContainer ||
-        (destContainer.canHold !== 'CONTAINERS' &&
-          destContainer.canHold !== 'ALL') ||
-        destContainer.holds === 'INVENTORY'
-      )
+      if (!destContainer || destContainer.canHold !== 'CONTAINERS')
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       const container = await this.server.containerDbManager.getDocument<
@@ -65,9 +60,6 @@ export class MoveContainerRoute extends BaseRoute {
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
       { _id: destContainer._id },
       {
-        $set: {
-          holds: 'CONTAINERS',
-        },
         $push: {
           containerIds: containerId,
         },

@@ -19,11 +19,7 @@ export class MoveItemRoute extends BaseRoute {
         _id: destinationContainerId,
       });
 
-      if (
-        !container ||
-        (container.canHold !== 'INVENTORY' && container.canHold !== 'ALL') ||
-        container.holds === 'CONTAINERS'
-      )
+      if (!container || container.canHold !== 'INVENTORY')
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       const item = await this.server.inventoryService.getItem(id);
@@ -62,16 +58,12 @@ export class MoveItemRoute extends BaseRoute {
 
     container.itemIds = container.itemIds.filter((id) => id !== itemId);
 
-    // Container is empty now
-    if (!container.itemIds.length) container.holds = 'NONE';
-
     await this.server.containerDbManager.updateDocument<Container>(
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
       { _id: containerId },
       {
         $set: {
           itemIds: container.itemIds,
-          holds: container.holds,
         },
       }
     );
@@ -82,9 +74,6 @@ export class MoveItemRoute extends BaseRoute {
       DatabaseConstants.ContainersDb.Collections.CONTAINERS,
       { _id: container._id },
       {
-        $set: {
-          holds: 'INVENTORY',
-        },
         $push: {
           itemIds: itemId,
         },

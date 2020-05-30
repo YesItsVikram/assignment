@@ -14,7 +14,7 @@ export class DeleteContainerRoute extends BaseRoute {
       const container = await this.server.containerDbManager.getDocument<
         Container
       >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, { _id: id });
-      if (!container || container.holds !== 'NONE')
+      if (!container || !this.isContainerEmpty(container))
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       await this.server.containerDbManager.deleteDocument<Container>(
@@ -29,5 +29,14 @@ export class DeleteContainerRoute extends BaseRoute {
     } catch (error) {
       throw error;
     }
+  }
+
+  private isContainerEmpty(container: Container): boolean {
+    return (
+      (container.canHold === 'CONTAINERS'
+        ? container.containerIds
+        : container.itemIds
+      ).length === 0
+    );
   }
 }

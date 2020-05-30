@@ -5,8 +5,7 @@ type Holdable = 'CONTAINERS' | 'INVENTORY';
 export interface Container extends Document {
   type: string;
 
-  canHold: Holdable | 'ALL';
-  holds: Holdable | 'NONE';
+  canHold: Holdable;
 
   containerIds: string[];
   itemIds: string[];

@@ -40,7 +40,6 @@ export class CreateContainerRoute extends BaseRoute {
 
     return {
       type,
-      holds: 'NONE',
       containerIds: [],
       itemIds: [],
       canHold,
