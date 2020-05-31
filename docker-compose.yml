@@ -8,22 +8,14 @@ version: '3'
 # service must remain to run the app.
 #
 # All ${VARIABLES} are taken from the top .env file in this directory.
-# App ----------------------------------------------------------------------------------------------------------------
-# client:
-#   build: client/
-#   volumes:
-#     - './client:/code'
-#   # host_port_that_your_OS_sees:port_your_container_exposes
-#   ports:
-#     - '${CLIENT_HOST_PORT}:${CLIENT_CONTAINER_PORT}'
-#   stdin_open: true # react native bug, needs this open
-#   command: './docker.start.sh'
-# Services
+# App ---------------------------------------------------------------------------------------------------------------- Services
 services:
   mongo:
     image: 'mongo:4.2.6'
     expose:
       - ${MONGODB_PORT}
+    ports:
+      - 27017:27017
     volumes:
       - './.docker-data/mongo:/data/db'
 

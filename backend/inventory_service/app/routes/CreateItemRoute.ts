@@ -58,6 +58,7 @@ export class CreateItemRoute extends BaseRoute {
       updatedAt: new Date(),
     };
 
+    // This logic is flawed, have to fix 
     if (details)
       for (const key in schema) {
         if (schema.hasOwnProperty(key)) {

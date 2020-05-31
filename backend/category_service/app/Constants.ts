@@ -22,4 +22,5 @@ export enum Routes {
   CREATE_CONTAINER_CATEGORY = '/createContainerCategory',
 
   GET_CATEGORY_ROUTE = '/getCategory',
+  GET_CATEGORIES_ROUTE = '/getCategories',
 }

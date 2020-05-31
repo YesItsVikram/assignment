@@ -19,7 +19,7 @@ export class GetItemsRoute extends BaseRoute {
         DatabaseConstants.InventoryDb.Collections.ITEMS,
         {},
         {
-          skip: +(limit * Math.max(pageNumber, 1) - 1),
+          skip: limit * (Math.max(pageNumber, 1) - 1),
           limit: +limit,
         }
       );
