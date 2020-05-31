@@ -13,3 +13,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./CreateContainerCategoryRequest"), exports);
 __exportStar(require("./CreateItemCategoryRequest"), exports);
 __exportStar(require("./GetCategoryRequest"), exports);
+__exportStar(require("./GetCategoriesRequest"), exports);

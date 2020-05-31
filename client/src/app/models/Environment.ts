@@ -22,6 +22,16 @@ export interface Environment {
     PATHS: {
       GET_ITEM: string;
       GET_ITEMS: string;
+      CREATE_ITEM: string;
+    };
+  };
+
+  CategoryServiceConstants: {
+    BASE_ROUTE: string;
+    PATHS: {
+      GET_CATEGORIES: string;
+      CREATE_ITEM_CATEGORY: string;
+      CREATE_CONTAINER_CATEGORY: string;
     };
   };
 }

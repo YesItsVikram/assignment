@@ -12,4 +12,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./CreateContainerCategoryResponse"), exports);
 __exportStar(require("./CreateItemCategoryResponse"), exports);
+__exportStar(require("./GetCategoriesResponse"), exports);
 __exportStar(require("./GetCategoryResponse"), exports);

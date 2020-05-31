@@ -26,6 +26,15 @@ export const environment: Environment = {
       GET_ITEMS: '/getItems',
     },
   },
+
+  CategoryServiceConstants: {
+    BASE_ROUTE: 'http://localhost:8082',
+    PATHS: {
+      GET_CATEGORIES: '/getCategories',
+      CREATE_CONTAINER_CATEGORY: '/createContainerCategory',
+      CREATE_ITEM_CATEGORY: '/createItemCategory',
+    },
+  },
 };
 
 /*
