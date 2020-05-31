@@ -10,7 +10,7 @@ import { GetRootContainerRoute } from './routes/GetRootContainer';
 import { MoveContainerRoute } from './routes/MoveContainerRoute';
 import { MoveItemRoute } from './routes/MoveItemRoute';
 import { ContainerDbManager } from './managers/ContainerDbManager';
-import { CategoryService } from './services/categoryService';
+import { CategoryService } from './services/CategoryService';
 
 export class Factory {
   static GetServer() {

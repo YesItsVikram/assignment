@@ -1,21 +1,21 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { RouteError } from '../errors/RouteError';
-import { ResponseTypes, DatabaseConstants } from '../Constants';
 import {
+  Item,
+  CreateItemRequest,
+  CreateItemResponse,
+  ItemCategory,
   DocumentData,
-  Container,
-  CreateContainerRequest,
-  CreateContainerResponse,
-  ContainerCategory,
   CategorySchema,
 } from '@custom_modules/models';
+import { DatabaseConstants, ResponseTypes } from '../Constants';
+import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 
-export class CreateContainerRoute extends BaseRoute {
+export class CreateItemRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
     try {
-      const params = this.getParams<CreateContainerRequest>(req);
+      const params = this.getParams<CreateItemRequest>(req);
       const { categoryId } = params;
 
       const category = await this.server.categoryService.getCategory(
@@ -24,31 +24,30 @@ export class CreateContainerRoute extends BaseRoute {
 
       if (!category) throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
-      const data = this.getContainerData(params, category);
+      const data = this.getItemData(params, category);
 
-      const container = await this.server.containerDbManager.insertDocument(
-        DatabaseConstants.ContainersDb.Collections.CONTAINERS,
+      const item = await this.server.inventoryDbManager.insertDocument(
+        DatabaseConstants.InventoryDb.Collections.ITEMS,
         data
       );
 
-      ResponseHandler.SendResponse<CreateContainerResponse>(res, {
+      ResponseHandler.SendResponse<CreateItemResponse>(res, {
         ...ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS),
-        container,
+        item,
       });
     } catch (error) {
       throw error;
     }
   }
 
-  private getContainerData(
-    { details }: CreateContainerRequest,
-    { kind, schema, _id, canHold }: ContainerCategory
-  ): DocumentData<Container> {
-    const data: DocumentData<Container> = {
+  private getItemData(
+    { details }: CreateItemRequest,
+    { schema, _id, name }: ItemCategory
+  ): DocumentData<Item> {
+    const data: DocumentData<Item> = {
       category: {
         id: _id.toString(),
-        kind,
-        canHold,
+        name,
       },
       containerIds: [],
       itemIds: [],

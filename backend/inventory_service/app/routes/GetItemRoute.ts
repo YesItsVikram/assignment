@@ -1,7 +1,6 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { GetItemRequest } from '../models/requests/incoming/GetItemRequest';
-import { Item } from '@custom_modules/models';
+import { Item, GetItemRequest, GetItemResponse } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
@@ -19,7 +18,7 @@ export class GetItemRoute extends BaseRoute {
 
       if (!item) throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
-      ResponseHandler.SendResponse(res, {
+      ResponseHandler.SendResponse<GetItemResponse>(res, {
         ...ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS),
         item,
       });

@@ -23,7 +23,7 @@ export class MoveItemRoute extends BaseRoute {
         _id: new ObjectId(destinationContainerId),
       });
 
-      if (!container || container.canHold !== 'INVENTORY')
+      if (!container || container.category.canHold !== 'INVENTORY')
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       const item = await this.server.inventoryService.getItem(id);

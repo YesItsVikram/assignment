@@ -10,6 +10,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+__exportStar(require("./CreateItemRequest"), exports);
 __exportStar(require("./GetItemRequest"), exports);
 __exportStar(require("./GetItemsRequest"), exports);
 __exportStar(require("./OnItemMovedToContainerRequest"), exports);

@@ -4,8 +4,8 @@ interface ContainerBase extends Document {
     category: {
         id: string;
         kind: string;
+        canHold: Holdable;
     };
-    canHold: Holdable;
     containerIds: string[];
     itemIds: string[];
     parentContainerId?: string;

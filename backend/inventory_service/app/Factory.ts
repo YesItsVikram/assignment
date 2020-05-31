@@ -5,13 +5,15 @@ import { GetItemRoute } from './routes/GetItemRoute';
 import { Routes } from './Constants';
 import { GetItemsRoute } from './routes/GetItemsRoute';
 import { OnItemMovedToContainerRoute } from './routes/OnItemMovedToContainerRoute';
+import { CategoryService } from './services/CategoryService';
 
 export class Factory {
   static GetServer() {
     const app = express();
     const inventoryDbManager = new InventoryDbManager();
+    const categoryService = new CategoryService();
 
-    return Server.GetInstance(app, inventoryDbManager);
+    return Server.GetInstance(app, inventoryDbManager, categoryService);
   }
 
   static InitAllRoutes() {

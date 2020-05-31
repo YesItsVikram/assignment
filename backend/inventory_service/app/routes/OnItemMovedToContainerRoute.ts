@@ -1,7 +1,10 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { OnItemMovedToContainerRequest } from '../models/requests/incoming/OnItemMovedToContainerRequest';
-import { Item } from '@custom_modules/models';
+import {
+  Item,
+  OnItemMovedToContainerRequest,
+  OnItemMovedToContainerResponse,
+} from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
@@ -23,7 +26,7 @@ export class OnItemMovedToContainerRoute extends BaseRoute {
 
       await this.updateItem(item, containerId);
 
-      ResponseHandler.SendResponse(
+      ResponseHandler.SendResponse<OnItemMovedToContainerResponse>(
         res,
         ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS)
       );

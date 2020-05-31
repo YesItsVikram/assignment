@@ -23,7 +23,7 @@ export class MoveContainerRoute extends BaseRoute {
         _id: new ObjectId(destinationContainerId),
       });
 
-      if (!destContainer || destContainer.canHold !== 'CONTAINERS')
+      if (!destContainer || destContainer.category.canHold !== 'CONTAINERS')
         throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       const container = await this.server.containerDbManager.getDocument<

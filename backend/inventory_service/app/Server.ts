@@ -4,20 +4,24 @@ import { PORT } from './Constants';
 import bodyParser from 'body-parser';
 import { InventoryDbManager } from './managers/InventoryDbManager';
 import { Factory } from './Factory';
+import { CategoryService } from './services/CategoryService';
 
 export class Server {
   static Instance: Server | null = null;
 
   private constructor(
     public app: Express,
-    public inventoryDbManager: InventoryDbManager
+    public inventoryDbManager: InventoryDbManager,
+    public categoryService: CategoryService
   ) {}
 
   static GetInstance(
     app: Express,
-    inventoryDbManager: InventoryDbManager
+    inventoryDbManager: InventoryDbManager,
+    categoryService: CategoryService
   ): Server {
-    if (!Server.Instance) Server.Instance = new Server(app, inventoryDbManager);
+    if (!Server.Instance)
+      Server.Instance = new Server(app, inventoryDbManager, categoryService);
     return Server.Instance;
   }
 

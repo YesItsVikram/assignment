@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import { InventoryService } from './services/InventoryService';
 import { ContainerDbManager } from './managers/ContainerDbManager';
 import { Factory } from './Factory';
-import { CategoryService } from './services/categoryService';
+import { CategoryService } from './services/CategoryService';
 
 export class Server {
   static Instance: Server | null = null;
