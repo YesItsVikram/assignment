@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import { InventoryService } from './services/InventoryService';
 import { ContainerDbManager } from './managers/ContainerDbManager';
 import { Factory } from './Factory';
+import { CategoryService } from './services/categoryService';
 
 export class Server {
   static Instance: Server | null = null;
@@ -12,16 +13,23 @@ export class Server {
   private constructor(
     public app: Express,
     public containerDbManager: ContainerDbManager,
-    public inventoryService: InventoryService
+    public inventoryService: InventoryService,
+    public categoryService: CategoryService
   ) {}
 
   static GetInstance(
     app: Express,
     dbManager: ContainerDbManager,
-    inventoryService: InventoryService
+    inventoryService: InventoryService,
+    categoryService: CategoryService
   ): Server {
     if (!Server.Instance)
-      Server.Instance = new Server(app, dbManager, inventoryService);
+      Server.Instance = new Server(
+        app,
+        dbManager,
+        inventoryService,
+        categoryService
+      );
     return Server.Instance;
   }
 

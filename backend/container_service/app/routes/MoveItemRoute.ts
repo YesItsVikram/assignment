@@ -1,7 +1,10 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { MoveItemRequest } from '../models/requests/incoming/MoveItemRequest';
-import { Container } from '@custom_modules/models';
+import {
+  Container,
+  MoveItemRequest,
+  MoveItemResponse,
+} from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
@@ -38,7 +41,7 @@ export class MoveItemRoute extends BaseRoute {
         item._id.toString(),
         item.parentContainerId
       );
-      ResponseHandler.SendResponse(
+      ResponseHandler.SendResponse<MoveItemResponse>(
         res,
         ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS)
       );
@@ -80,7 +83,7 @@ export class MoveItemRoute extends BaseRoute {
       {
         $push: {
           itemIds: itemId.toString(),
-        },
+        } as any,
       }
     );
   }

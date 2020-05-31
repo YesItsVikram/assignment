@@ -15,7 +15,7 @@ interface ContainerBase extends Document {
   parentContainerId?: string;
 }
 
-interface ContainerDetails {
+export interface ContainerDetails {
   [key: string]: any;
 }
 

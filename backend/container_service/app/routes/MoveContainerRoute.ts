@@ -1,7 +1,10 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { MoveContainerRequest } from '../models/requests/incoming/MoveContainerRequest';
-import { Container } from '@custom_modules/models';
+import {
+  Container,
+  MoveContainerRequest,
+  MoveContainerResponse,
+} from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
@@ -34,7 +37,7 @@ export class MoveContainerRoute extends BaseRoute {
       await this.updateDestContainer(id, destContainer);
       await this.updateContainer(id, destContainer._id.toString());
 
-      ResponseHandler.SendResponse(
+      ResponseHandler.SendResponse<MoveContainerResponse>(
         res,
         ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS)
       );
@@ -65,7 +68,7 @@ export class MoveContainerRoute extends BaseRoute {
       {
         $push: {
           containerIds: containerId,
-        },
+        } as any,
       }
     );
   }

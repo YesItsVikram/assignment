@@ -10,14 +10,21 @@ import { GetRootContainerRoute } from './routes/GetRootContainer';
 import { MoveContainerRoute } from './routes/MoveContainerRoute';
 import { MoveItemRoute } from './routes/MoveItemRoute';
 import { ContainerDbManager } from './managers/ContainerDbManager';
+import { CategoryService } from './services/categoryService';
 
 export class Factory {
   static GetServer() {
     const app = express();
     const containerDbManager = new ContainerDbManager();
     const inventoryService = new InventoryService();
+    const categoryService = new CategoryService();
 
-    return Server.GetInstance(app, containerDbManager, inventoryService);
+    return Server.GetInstance(
+      app,
+      containerDbManager,
+      inventoryService,
+      categoryService
+    );
   }
 
   static InitAllRoutes() {

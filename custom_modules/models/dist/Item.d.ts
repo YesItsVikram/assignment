@@ -6,7 +6,7 @@ interface ItemBase extends Document {
     };
     parentContainerId?: string;
 }
-interface ItemDetails {
+export interface ItemDetails {
     [key: string]: any;
 }
 export declare type Item = ItemBase & ItemDetails;

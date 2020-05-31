@@ -1,7 +1,10 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { GetContainerRequest } from '../models/requests/incoming/GetContainerRequest';
-import { Container } from '@custom_modules/models';
+import {
+  Container,
+  GetContainerRequest,
+  GetContainerResponse,
+} from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 import { RouteError } from '../errors/RouteError';
@@ -20,7 +23,7 @@ export class GetContainerRoute extends BaseRoute {
 
       if (!container) throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
-      ResponseHandler.SendResponse(res, {
+      ResponseHandler.SendResponse<GetContainerResponse>(res, {
         ...ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS),
         container,
       });

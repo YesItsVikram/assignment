@@ -1,9 +1,12 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { Container } from '@custom_modules/models';
+import {
+  Container,
+  GetRootContainerRequest,
+  GetRootContainerResponse,
+} from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
-import { GetRootContainerRequest } from '../models/requests/incoming/GetRootContainerRequest';
 import { RouteError } from '../errors/RouteError';
 import { ObjectId } from 'mongodb';
 
@@ -19,7 +22,7 @@ export class GetRootContainerRoute extends BaseRoute {
 
       const container = await this.getRootContainer(item.parentContainerId);
 
-      ResponseHandler.SendResponse(res, {
+      ResponseHandler.SendResponse<GetRootContainerResponse>(res, {
         ...ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS),
         container,
       });

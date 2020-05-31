@@ -1,7 +1,10 @@
 import { BaseRoute } from './BaseRoute';
 import { Request, Response } from 'express';
-import { DeleteContainerRequest } from '../models/requests/incoming/DeleteContainerRequest';
-import { Container } from '@custom_modules/models';
+import {
+  Container,
+  DeleteContainerRequest,
+  DeleteContainerResponse,
+} from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 import { RouteError } from '../errors/RouteError';
@@ -25,7 +28,7 @@ export class DeleteContainerRoute extends BaseRoute {
         { _id: new ObjectId(id) }
       );
 
-      ResponseHandler.SendResponse(
+      ResponseHandler.SendResponse<DeleteContainerResponse>(
         res,
         ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS)
       );

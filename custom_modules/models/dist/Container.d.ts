@@ -10,7 +10,7 @@ interface ContainerBase extends Document {
     itemIds: string[];
     parentContainerId?: string;
 }
-interface ContainerDetails {
+export interface ContainerDetails {
     [key: string]: any;
 }
 export declare type Container = ContainerBase & ContainerDetails;

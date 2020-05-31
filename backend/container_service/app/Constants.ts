@@ -18,6 +18,13 @@ export const InventoryServiceConstants = {
   },
 };
 
+export const CategoryServiceConstants = {
+  BASE_ROUTE: '' + process.env.CATEGORY_SERVICE_BASE_ROUTE,
+  ROUTES: {
+    GET_CATEGORY: '/getCategory',
+  },
+};
+
 export enum ResponseTypes {
   SUCCESS,
   INVALID_REQUEST,
