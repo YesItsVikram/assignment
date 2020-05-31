@@ -5,6 +5,7 @@ export const DatabaseConstants = {
     URI: '' + process.env.CONTAINERS_DB_URI,
     Collections: {
       CONTAINERS: 'containers',
+      META: 'meta',
     },
   },
 };

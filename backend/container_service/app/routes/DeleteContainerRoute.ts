@@ -4,6 +4,8 @@ import {
   Container,
   DeleteContainerRequest,
   DeleteContainerResponse,
+  ContainerCategory,
+  ContainersMeta,
 } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
@@ -28,6 +30,9 @@ export class DeleteContainerRoute extends BaseRoute {
         { _id: new ObjectId(id) }
       );
 
+      await this.updateMeta(container.category.id);
+      await this.updateMeta('ALL');
+
       ResponseHandler.SendResponse<DeleteContainerResponse>(
         res,
         ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS)
@@ -43,6 +48,18 @@ export class DeleteContainerRoute extends BaseRoute {
         ? container.containerIds
         : container.itemIds
       ).length === 0
+    );
+  }
+
+  private async updateMeta(categoryId: ContainerCategory['_id']) {
+    await this.server.containerDbManager.updateDocument<ContainersMeta>(
+      DatabaseConstants.ContainersDb.Collections.META,
+      { _id: categoryId.toString() },
+      {
+        $inc: {
+          containersCount: -1,
+        },
+      }
     );
   }
 }

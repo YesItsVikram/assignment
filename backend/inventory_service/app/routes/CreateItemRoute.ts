@@ -109,9 +109,6 @@ export class CreateItemRoute extends BaseRoute {
         $inc: {
           itemsCount: 1,
         },
-        $set: {
-          updatedAt: new Date(),
-        },
       },
       {
         upsert: true,

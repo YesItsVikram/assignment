@@ -9,6 +9,7 @@ import {
   CreateContainerResponse,
   ContainerCategory,
   CategorySchema,
+  ContainersMeta,
 } from '@custom_modules/models';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 
@@ -30,6 +31,9 @@ export class CreateContainerRoute extends BaseRoute {
         DatabaseConstants.ContainersDb.Collections.CONTAINERS,
         data
       );
+
+      await this.updateMeta(categoryId);
+      await this.updateMeta('ALL');
 
       ResponseHandler.SendResponse<CreateContainerResponse>(res, {
         ...ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS),
@@ -93,5 +97,25 @@ export class CreateContainerRoute extends BaseRoute {
     if (type === 'array') return Array.isArray(data);
 
     return typeof data === type;
+  }
+
+  private async updateMeta(categoryId: ContainerCategory['_id']) {
+    await this.server.containerDbManager.updateDocument<ContainersMeta>(
+      DatabaseConstants.ContainersDb.Collections.META,
+      { _id: categoryId.toString() },
+      {
+        $setOnInsert: {
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          containersCount: 1,
+        },
+        $inc: {
+          containersCount: 1,
+        },
+      },
+      {
+        upsert: true,
+      }
+    );
   }
 }
