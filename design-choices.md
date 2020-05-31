@@ -27,12 +27,21 @@ This service handles:
   - creating new category
   - getting category/categories from db
 
+This service requires:
+  - A mongodb connection string
+
 # Inventory Service
 This service handles:
   - creating new inventory item for a category
   - getting item/items from db
   - updating item when it is moved to a different container
   - keep a record of number of items for each category and number of total items (you could add other details too)
+
+This service requires:
+  - A mongodb connection string
+  - category_service's endpoint (for http request)
+
+Each inventory item (that is inside a container) holds the id of its parent container
 
 # Container Service
 This service handles:
@@ -44,9 +53,24 @@ This service handles:
   - moving a container to a container (only if it's allowed to hold containers)
   - keep a record of number of containers for each category and number of total containers
 
+This service requires:
+  - A mongodb connection string
+  - category_service's endpoint (for http request)
+  - inventory_service's endpoint (for http request)
 
+Each container holds the id of its parent container
+Each container has a list of its child container id or child item id, depending on whether it's holding containers or items
+
+---------
 
 * Both the inventory item and container have unique id which can be treated as barcode
+
+* Please check out the models (Typescript interfaces) present in ./custom_modules/models/app to better understand the data design
+
+* The models also have all the APIs' request and response parameters, so implementing an API on frontend or in any other service is a easy
+
+* All the 3 database used by the 3 services can be seperated, i.e., each services manages its own database and is not depended on any other service's database or collection
+
 * Due to lack of time, I've not handled data validation for requests, logs, errors etc
 
 ------------
