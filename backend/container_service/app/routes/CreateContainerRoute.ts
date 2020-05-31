@@ -106,8 +106,6 @@ export class CreateContainerRoute extends BaseRoute {
       {
         $setOnInsert: {
           createdAt: new Date(),
-          updatedAt: new Date(),
-          containersCount: 1,
         },
         $inc: {
           containersCount: 1,

@@ -36,7 +36,7 @@ services:
       PORT: ${CONTAINER_SERVICE_CONTAINER_PORT}
       INVENTORY_SERVICE_BASE_ROUTE: 'http://inventory_service:${INVENTORY_SERVICE_CONTAINER_PORT}'
       CATEGORY_SERVICE_BASE_ROUTE: 'http://category_service:${CATEGORY_SERVICE_CONTAINER_PORT}'
-      CONTAINERS_DB_URI: 'mongodb://mongo:${MONGODB_PORT}/containers_db'
+      CONTAINERS_DB_URI: 'mongodb://mongo:${MONGODB_PORT}/container'
 
     depends_on:
       - mongo
@@ -48,7 +48,7 @@ services:
 
     environment:
       PORT: ${INVENTORY_SERVICE_CONTAINER_PORT}
-      INVENTORY_DB_URI: 'mongodb://mongo:${MONGODB_PORT}/inventory_db'
+      INVENTORY_DB_URI: 'mongodb://mongo:${MONGODB_PORT}/inventory'
       CATEGORY_SERVICE_BASE_ROUTE: 'http://category_service:${CATEGORY_SERVICE_CONTAINER_PORT}'
 
     depends_on:
@@ -61,7 +61,7 @@ services:
 
     environment:
       PORT: ${CATEGORY_SERVICE_CONTAINER_PORT}
-      CATEGORY_DB_URI: 'mongodb://mongo:${MONGODB_PORT}/category_db'
+      CATEGORY_DB_URI: 'mongodb://mongo:${MONGODB_PORT}/category'
 
     depends_on:
       - mongo

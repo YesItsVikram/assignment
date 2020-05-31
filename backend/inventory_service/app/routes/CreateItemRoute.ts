@@ -12,6 +12,7 @@ import {
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
 import { ResponseHandler } from '../handlers/ResponseHandler';
+import { ObjectId } from 'mongodb';
 
 export class CreateItemRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -103,8 +104,6 @@ export class CreateItemRoute extends BaseRoute {
       {
         $setOnInsert: {
           createdAt: new Date(),
-          updatedAt: new Date(),
-          itemsCount: 1,
         },
         $inc: {
           itemsCount: 1,
