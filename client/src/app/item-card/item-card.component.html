@@ -1,0 +1,19 @@
+<mat-card class="mat-elevation-z6" style="margin: 10px;">
+  <mat-card-content>
+    <div>{{ item | json }}</div>
+  </mat-card-content>
+
+  <h4>Move to container</h4>
+
+  <mat-form-field>
+    <mat-label>Container id</mat-label>
+    <mat-select [(value)]="selectedid">
+      <mat-option *ngFor="let id of containerIds" [value]="id">
+        {{ id }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-card-actions>
+    <button mat-button (click)="buttonClicked()">Move</button>
+  </mat-card-actions>
+</mat-card>

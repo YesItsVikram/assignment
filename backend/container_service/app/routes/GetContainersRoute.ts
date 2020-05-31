@@ -20,7 +20,7 @@ export class GetContainersRoute extends BaseRoute {
       >(
         DatabaseConstants.ContainersDb.Collections.CONTAINERS,
         {},
-        { skip: limit * (Math.max(pageNumber, 1) - 1), limit }
+        { skip: limit * (Math.max(pageNumber, 1) - 1), limit: +limit }
       );
 
       ResponseHandler.SendResponse<GetContainersResponse>(res, {

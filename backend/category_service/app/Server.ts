@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import { Factory } from './Factory';
 import { CategoryDbManager } from './managers/CategoryDbManager';
 import { ResponseHandler } from './handlers/ResponseHandler';
+import cors from 'cors';
 
 export class Server {
   static Instance: Server | null = null;
@@ -50,6 +51,13 @@ export class Server {
   }
 
   private setMiddlewares() {
+    this.app.options('*', cors({ origin: true, credentials: true }));
+
+    this.app.use(
+      cors({
+        origin: (origin, callback) => callback(null, true),
+      })
+    );
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
   }

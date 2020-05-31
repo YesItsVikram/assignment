@@ -24,6 +24,7 @@ export const environment: Environment = {
     PATHS: {
       GET_ITEM: '/getItem',
       GET_ITEMS: '/getItems',
+      CREATE_ITEM: '/createItem',
     },
   },
 

@@ -30,7 +30,7 @@ export class GetCategoriesRoute extends BaseRoute {
           ? DatabaseConstants.CategoryDb.Collections.CONAINTER_CATEGORY
           : DatabaseConstants.CategoryDb.Collections.ITEM_CATEGORY,
         {},
-        { skip: limit * (Math.max(pageNumber, 1) - 1), limit }
+        { skip: limit * (Math.max(pageNumber, 1) - 1), limit: +limit }
       );
 
       if (!categories) throw new RouteError(ResponseTypes.INVALID_REQUEST);

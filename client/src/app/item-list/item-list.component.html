@@ -1,0 +1,9 @@
+<div>
+  <div *ngIf="items.length && containerIds.length">
+    <app-item-card
+      *ngFor="let item of items"
+      [item]="item"
+      [containerIds]="containerIds"
+    ></app-item-card>
+  </div>
+</div>
