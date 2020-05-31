@@ -19,6 +19,7 @@ services:
     volumes:
       - './.docker-data/mongo:/data/db'
 
+  # container service
   container_service:
     build: backend/container_service
     ports:
@@ -33,6 +34,7 @@ services:
     depends_on:
       - mongo
 
+  # inventory service
   inventory_service:
     build: backend/inventory_service
     ports:
@@ -46,6 +48,7 @@ services:
     depends_on:
       - mongo
 
+  # category service
   category_service:
     build: backend/category_service
     ports:
@@ -57,6 +60,12 @@ services:
 
     depends_on:
       - mongo
+
+  # client
+  client:
+    build: client
+    ports:
+      - '${CLIENT_PORT}:80'
 
 networks:
   default:
