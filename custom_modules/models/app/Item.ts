@@ -3,7 +3,7 @@ import { Document } from './Document';
 interface ItemBase extends Document {
   category: {
     id: string;
-    name: string;
+    kind: string;
   };
 
   parentContainerId?: string;

@@ -4,8 +4,8 @@ export const DatabaseConstants = {
   CategoryDb: {
     URI: '' + process.env.CATEGORY_DB_URI,
     Collections: {
-      ITEMS_CATEGORY: 'items_category',
-      CONAINTERS_CATEGORY: 'containers_category',
+      ITEM_CATEGORY: 'item_category',
+      CONAINTER_CATEGORY: 'container_category',
     },
   },
 };
@@ -13,12 +13,13 @@ export const DatabaseConstants = {
 export enum ResponseTypes {
   SUCCESS,
   INVALID_REQUEST,
+  INVALID_ROUTE,
   SOMETHING_WENT_WRONG,
 }
 
 export enum Routes {
-  CREATE_ITEMS_CATEGORY = 'createItemsCategory',
-  CREATE_CONTAINERS_CATEGORY = 'createContainersCategory',
+  CREATE_ITEM_CATEGORY = '/createItemCategory',
+  CREATE_CONTAINER_CATEGORY = '/createContainerCategory',
 
-  GET_CATEGORY_ROUTE = 'getCategory',
+  GET_CATEGORY_ROUTE = '/getCategory',
 }

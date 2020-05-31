@@ -5,7 +5,6 @@ export const DatabaseConstants = {
     URI: '' + process.env.CONTAINERS_DB_URI,
     Collections: {
       CONTAINERS: 'containers',
-      METAS: 'metas',
     },
   },
 };
@@ -28,6 +27,7 @@ export const CategoryServiceConstants = {
 export enum ResponseTypes {
   SUCCESS,
   INVALID_REQUEST,
+  INVALID_ROUTE,
   SOMETHING_WENT_WRONG,
 }
 

@@ -6,6 +6,7 @@ import { Routes } from './Constants';
 import { GetItemsRoute } from './routes/GetItemsRoute';
 import { OnItemMovedToContainerRoute } from './routes/OnItemMovedToContainerRoute';
 import { CategoryService } from './services/CategoryService';
+import { CreateItemRoute } from './routes/CreateItemRoute';
 
 export class Factory {
   static GetServer() {
@@ -20,5 +21,6 @@ export class Factory {
     new GetItemRoute(Routes.GET_ITEM, true);
     new GetItemsRoute(Routes.GET_ITEMS, true);
     new OnItemMovedToContainerRoute(Routes.ON_ITEM_MOVED_TO_CONTAINER, false);
+    new CreateItemRoute(Routes.CREATE_ITEM, false);
   }
 }

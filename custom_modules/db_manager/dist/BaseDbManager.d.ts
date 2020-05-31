@@ -1,4 +1,4 @@
-import { Db, UpdateQuery, FindOneOptions } from 'mongodb';
+import { Db, UpdateQuery, FindOneOptions, FindOneAndUpdateOption } from 'mongodb';
 import { Document, DocumentData } from '@custom_modules/models';
 export declare abstract class BaseDbManager {
     db: Db | null;
@@ -10,5 +10,5 @@ export declare abstract class BaseDbManager {
     deleteDocument<T extends Document>(collection: string, filter: Partial<T>): Promise<import("mongodb").DeleteWriteOpResultObject>;
     getDocument<T extends Document>(collection: string, filter: Partial<T>): Promise<Document<T> | null>;
     getDocuments<T extends Document>(collection: string, filter: Partial<T>, options: FindOneOptions): Promise<Document<T>[]>;
-    updateDocument<T extends Document>(collection: string, filter: Partial<T>, update: UpdateQuery<T>): Promise<Document<T> | null>;
+    updateDocument<T extends Document>(collection: string, filter: Partial<T>, update: UpdateQuery<T>, options?: FindOneAndUpdateOption): Promise<Document<T> | null>;
 }

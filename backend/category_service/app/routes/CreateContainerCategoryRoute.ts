@@ -8,11 +8,15 @@ import {
 } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
+import { RouteError } from '../errors/RouteError';
 
 export class CreateContainerCategoryRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
     try {
       const params = this.getParams<CreateContainerCategoryRequest>(req);
+
+      if (params.canHold !== 'CONTAINERS' && params.canHold !== 'INVENTORY')
+        throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       const category = await this.createCategory(params);
 
@@ -39,7 +43,7 @@ export class CreateContainerCategoryRoute extends BaseRoute {
     };
 
     return this.server.categoryDbManager.insertDocument<ContainerCategory>(
-      DatabaseConstants.CategoryDb.Collections.CONAINTERS_CATEGORY,
+      DatabaseConstants.CategoryDb.Collections.CONAINTER_CATEGORY,
       containerCategory
     );
   }

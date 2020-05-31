@@ -28,8 +28,7 @@ export class MoveItemRoute extends BaseRoute {
 
       const item = await this.server.inventoryService.getItem(id);
 
-      if (!item || !item.parentContainerId)
-        throw new RouteError(ResponseTypes.INVALID_REQUEST);
+      if (!item) throw new RouteError(ResponseTypes.INVALID_REQUEST);
 
       await this.addItemToContainer(item._id.toString(), container);
       await this.server.inventoryService.itemMovedToContainer(
@@ -37,10 +36,12 @@ export class MoveItemRoute extends BaseRoute {
         container
       );
 
-      await this.removeItemFromContainer(
-        item._id.toString(),
-        item.parentContainerId
-      );
+      if (item.parentContainerId)
+        await this.removeItemFromContainer(
+          item._id.toString(),
+          item.parentContainerId
+        );
+
       ResponseHandler.SendResponse<MoveItemResponse>(
         res,
         ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS)
@@ -50,7 +51,7 @@ export class MoveItemRoute extends BaseRoute {
     }
   }
 
-  private async removeItemFromContainer(itemId: string, containerId: string) {
+  private async removeItemFromContainer(itemId: string, containerId?: string) {
     const container = await this.server.containerDbManager.getDocument<
       Container
     >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {

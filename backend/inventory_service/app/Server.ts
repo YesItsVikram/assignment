@@ -1,10 +1,11 @@
 import { Express } from 'express';
 import { logger } from '@custom_modules/utils';
-import { PORT } from './Constants';
+import { PORT, ResponseTypes } from './Constants';
 import bodyParser from 'body-parser';
 import { InventoryDbManager } from './managers/InventoryDbManager';
 import { Factory } from './Factory';
 import { CategoryService } from './services/CategoryService';
+import { ResponseHandler } from './handlers/ResponseHandler';
 
 export class Server {
   static Instance: Server | null = null;
@@ -37,7 +38,10 @@ export class Server {
       logger.info(`Routes initialized`);
 
       this.app.get('*', (req, res) => {
-        res.send('Invalid Route');
+        ResponseHandler.SendResponse(
+          res,
+          ResponseHandler.GetResponseStatus(ResponseTypes.INVALID_ROUTE)
+        );
       });
 
       this.app.listen(PORT, () => {

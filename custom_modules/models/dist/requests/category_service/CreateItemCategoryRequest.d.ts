@@ -1,2 +1,2 @@
 import { ItemCategory } from '../../ItemCategory';
-export declare type CreateItemCategoryRequest = Pick<ItemCategory, 'name' | 'schema'>;
+export declare type CreateItemCategoryRequest = Pick<ItemCategory, 'kind' | 'schema'>;

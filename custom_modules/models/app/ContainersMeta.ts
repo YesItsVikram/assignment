@@ -1,6 +1,6 @@
 import { Document } from './Document';
 
 export interface ContainersMeta extends Document {
-  category: 'ALL' | string;
+  _id: 'ALL' | string; // _id of the category or "ALL" for all categories
   containersCount: number;
 }

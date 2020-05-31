@@ -9,6 +9,7 @@ import {
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 import { RouteError } from '../errors/RouteError';
+import { ObjectId } from 'mongodb';
 
 export class GetCategoryRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
@@ -20,13 +21,14 @@ export class GetCategoryRoute extends BaseRoute {
 
       const category:
         | ContainerCategory
-        | ItemCategory = await this.server.categoryDbManager.getDocument<
+        | ItemCategory
+        | null = await this.server.categoryDbManager.getDocument<
         ContainerCategory | ItemCategory
       >(
         collection === 'CONTAINERS'
-          ? DatabaseConstants.CategoryDb.Collections.CONAINTERS_CATEGORY
-          : DatabaseConstants.CategoryDb.Collections.ITEMS_CATEGORY,
-        { _id: id }
+          ? DatabaseConstants.CategoryDb.Collections.CONAINTER_CATEGORY
+          : DatabaseConstants.CategoryDb.Collections.ITEM_CATEGORY,
+        { _id: new ObjectId(id) }
       );
 
       if (!category) throw new RouteError(ResponseTypes.INVALID_REQUEST);

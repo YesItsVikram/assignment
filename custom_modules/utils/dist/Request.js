@@ -10,6 +10,10 @@ class Request {
             try {
                 Logger_1.logger.info('Request.HttpRequest');
                 reqOptions.timeout = 10000;
+                reqOptions.headers = {
+                    ...reqOptions.headers,
+                    'content-type': 'application/json',
+                };
                 Logger_1.logger.info(`Url: ${url}, Request options: ${JSON.stringify(reqOptions)}`);
                 const httpReq = http_1.request(url, reqOptions, (res) => {
                     res.setEncoding('utf8');
@@ -19,7 +23,7 @@ class Request {
                     });
                     res.on('end', () => {
                         try {
-                            Logger_1.logger.info('data on response: ', data);
+                            Logger_1.logger.info('Data on response: ', data);
                             const jsonData = JSON.parse(data.toString());
                             resolve(jsonData);
                         }
@@ -28,8 +32,6 @@ class Request {
                         }
                     });
                 });
-                Logger_1.logger.info('Data to request: ', JSON.stringify(reqData));
-                httpReq.write(JSON.stringify(reqData));
                 httpReq.on('timeout', () => {
                     Logger_1.logger.error('TIMED OUT FOR REQUEST');
                     return reject(new Error('TIMED OUT FOR REQUEST'));
@@ -37,6 +39,10 @@ class Request {
                 httpReq.on('error', (error) => {
                     reject(error);
                 });
+                if (reqOptions.method === 'POST') {
+                    Logger_1.logger.info('Data to request: ', JSON.stringify(reqData));
+                    httpReq.write(JSON.stringify(reqData));
+                }
                 httpReq.end();
             }
             catch (error) {
@@ -49,6 +55,10 @@ class Request {
             try {
                 Logger_1.logger.info('Request.HttpsRequest');
                 reqOptions.timeout = 10000;
+                reqOptions.headers = {
+                    ...reqOptions.headers,
+                    'content-type': 'application/json',
+                };
                 Logger_1.logger.info(`Url: ${url}, Request options: ${JSON.stringify(reqOptions)}`);
                 const httpsReq = https_1.request(url, reqOptions, (res) => {
                     res.setEncoding('utf8');
@@ -58,7 +68,7 @@ class Request {
                     });
                     res.on('end', () => {
                         try {
-                            Logger_1.logger.info('data on response: ', data);
+                            Logger_1.logger.info('Data on response: ', data);
                             const jsonData = JSON.parse(data.toString());
                             resolve(jsonData);
                         }
@@ -67,8 +77,6 @@ class Request {
                         }
                     });
                 });
-                Logger_1.logger.info('Data to request: ', JSON.stringify(reqData));
-                httpsReq.write(JSON.stringify(reqData));
                 httpsReq.on('timeout', () => {
                     Logger_1.logger.error('TIMED OUT FOR REQUEST');
                     return reject(new Error('TIMED OUT FOR REQUEST'));
@@ -76,7 +84,11 @@ class Request {
                 httpsReq.on('error', (error) => {
                     reject(error);
                 });
-                httpsReq.end();
+                if (reqOptions.method === 'POST') {
+                    Logger_1.logger.info('Data to request: ', JSON.stringify(reqData));
+                    httpsReq.write(JSON.stringify(reqData));
+                    httpsReq.end();
+                }
             }
             catch (error) {
                 return reject(error);

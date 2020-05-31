@@ -17,6 +17,9 @@ export class MoveContainerRoute extends BaseRoute {
         MoveContainerRequest
       >(req);
 
+      if (id === destinationContainerId)
+        throw new RouteError(ResponseTypes.INVALID_REQUEST);
+
       const destContainer = await this.server.containerDbManager.getDocument<
         Container
       >(DatabaseConstants.ContainersDb.Collections.CONTAINERS, {

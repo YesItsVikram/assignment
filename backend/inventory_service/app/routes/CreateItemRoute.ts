@@ -7,6 +7,7 @@ import {
   ItemCategory,
   DocumentData,
   CategorySchema,
+  InventoryMeta,
 } from '@custom_modules/models';
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { RouteError } from '../errors/RouteError';
@@ -31,6 +32,9 @@ export class CreateItemRoute extends BaseRoute {
         data
       );
 
+      await this.updateMeta(categoryId);
+      await this.updateMeta('ALL');
+
       ResponseHandler.SendResponse<CreateItemResponse>(res, {
         ...ResponseHandler.GetResponseStatus(ResponseTypes.SUCCESS),
         item,
@@ -42,15 +46,13 @@ export class CreateItemRoute extends BaseRoute {
 
   private getItemData(
     { details }: CreateItemRequest,
-    { schema, _id, name }: ItemCategory
+    { schema, _id, kind }: ItemCategory
   ): DocumentData<Item> {
     const data: DocumentData<Item> = {
       category: {
         id: _id.toString(),
-        name,
+        kind,
       },
-      containerIds: [],
-      itemIds: [],
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -92,5 +94,28 @@ export class CreateItemRoute extends BaseRoute {
     if (type === 'array') return Array.isArray(data);
 
     return typeof data === type;
+  }
+
+  private async updateMeta(categoryId: InventoryMeta['_id']) {
+    await this.server.inventoryDbManager.updateDocument<InventoryMeta>(
+      DatabaseConstants.InventoryDb.Collections.META,
+      { _id: categoryId.toString() },
+      {
+        $setOnInsert: {
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          itemsCount: 1,
+        },
+        $inc: {
+          itemsCount: 1,
+        },
+        $set: {
+          updatedAt: new Date(),
+        },
+      },
+      {
+        upsert: true,
+      }
+    );
   }
 }

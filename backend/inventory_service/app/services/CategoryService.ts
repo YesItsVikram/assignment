@@ -10,7 +10,7 @@ export class CategoryService {
   async getCategory(id: string): Promise<ItemCategory | null> {
     const reqData: GetCategoryRequest = {
       id,
-      collection: 'CONTAINERS',
+      collection: 'ITEMS',
     };
 
     const resp = await Request.HttpRequest<GetCategryResponse<ItemCategory>>(

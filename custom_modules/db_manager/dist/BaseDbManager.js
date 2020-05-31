@@ -27,7 +27,7 @@ class BaseDbManager {
         const cursor = this.db.collection(collection).find(filter, options);
         return cursor.toArray();
     }
-    async updateDocument(collection, filter, update) {
+    async updateDocument(collection, filter, update, options = {}) {
         if (!this.db)
             throw new Error(`DB IS NOT INITIALIZED`);
         if (!update.$set)
@@ -35,7 +35,7 @@ class BaseDbManager {
         update.$set = { ...update.$set, updatedAt: new Date() };
         const { value } = await this.db
             .collection(collection)
-            .findOneAndUpdate(filter, update, { returnOriginal: false });
+            .findOneAndUpdate(filter, update, { returnOriginal: false, ...options });
         return value || null;
     }
 }

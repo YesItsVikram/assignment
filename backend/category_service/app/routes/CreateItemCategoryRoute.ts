@@ -9,7 +9,7 @@ import {
 import { DatabaseConstants, ResponseTypes } from '../Constants';
 import { ResponseHandler } from '../handlers/ResponseHandler';
 
-export class CreateCategoryRoute extends BaseRoute {
+export class CreateItemCategoryRoute extends BaseRoute {
   async handleRequest(req: Request, res: Response) {
     try {
       const params = this.getParams<CreateItemCategoryRequest>(req);
@@ -27,18 +27,18 @@ export class CreateCategoryRoute extends BaseRoute {
 
   private async createCategory({
     schema,
-    name,
+    kind,
   }: CreateItemCategoryRequest): Promise<ItemCategory> {
-    const containerCategory: DocumentData<ItemCategory> = {
-      name,
+    const itemCategory: DocumentData<ItemCategory> = {
+      kind,
       schema,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
 
     return this.server.categoryDbManager.insertDocument<ItemCategory>(
-      DatabaseConstants.CategoryDb.Collections.ITEMS_CATEGORY,
-      containerCategory
+      DatabaseConstants.CategoryDb.Collections.ITEM_CATEGORY,
+      itemCategory
     );
   }
 }

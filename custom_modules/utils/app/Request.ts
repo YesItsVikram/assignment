@@ -16,6 +16,10 @@ export class Request {
         logger.info('Request.HttpRequest');
 
         reqOptions.timeout = 10000;
+        reqOptions.headers = {
+          ...reqOptions.headers,
+          'content-type': 'application/json',
+        };
 
         logger.info(
           `Url: ${url}, Request options: ${JSON.stringify(reqOptions)}`
@@ -31,7 +35,7 @@ export class Request {
 
           res.on('end', () => {
             try {
-              logger.info('data on response: ', data);
+              logger.info('Data on response: ', data);
 
               const jsonData = JSON.parse(data.toString());
               resolve(jsonData);
@@ -41,10 +45,6 @@ export class Request {
           });
         });
 
-        logger.info('Data to request: ', JSON.stringify(reqData));
-
-        httpReq.write(JSON.stringify(reqData));
-
         httpReq.on('timeout', () => {
           logger.error('TIMED OUT FOR REQUEST');
           return reject(new Error('TIMED OUT FOR REQUEST'));
@@ -53,6 +53,11 @@ export class Request {
         httpReq.on('error', (error) => {
           reject(error);
         });
+
+        if (reqOptions.method === 'POST') {
+          logger.info('Data to request: ', JSON.stringify(reqData));
+          httpReq.write(JSON.stringify(reqData));
+        }
 
         httpReq.end();
       } catch (error) {
@@ -71,6 +76,10 @@ export class Request {
         logger.info('Request.HttpsRequest');
 
         reqOptions.timeout = 10000;
+        reqOptions.headers = {
+          ...reqOptions.headers,
+          'content-type': 'application/json',
+        };
 
         logger.info(
           `Url: ${url}, Request options: ${JSON.stringify(reqOptions)}`
@@ -86,7 +95,7 @@ export class Request {
 
           res.on('end', () => {
             try {
-              logger.info('data on response: ', data);
+              logger.info('Data on response: ', data);
 
               const jsonData = JSON.parse(data.toString());
               resolve(jsonData);
@@ -95,10 +104,6 @@ export class Request {
             }
           });
         });
-
-        logger.info('Data to request: ', JSON.stringify(reqData));
-
-        httpsReq.write(JSON.stringify(reqData));
 
         httpsReq.on('timeout', () => {
           logger.error('TIMED OUT FOR REQUEST');
@@ -109,7 +114,12 @@ export class Request {
           reject(error);
         });
 
-        httpsReq.end();
+        if (reqOptions.method === 'POST') {
+          logger.info('Data to request: ', JSON.stringify(reqData));
+          httpsReq.write(JSON.stringify(reqData));
+
+          httpsReq.end();
+        }
       } catch (error) {
         return reject(error);
       }

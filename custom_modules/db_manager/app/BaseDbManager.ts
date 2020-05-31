@@ -1,4 +1,9 @@
-import { Db, UpdateQuery, FindOneOptions } from 'mongodb';
+import {
+  Db,
+  UpdateQuery,
+  FindOneOptions,
+  FindOneAndUpdateOption,
+} from 'mongodb';
 import { Document, DocumentData } from '@custom_modules/models';
 
 export abstract class BaseDbManager {
@@ -52,7 +57,8 @@ export abstract class BaseDbManager {
   async updateDocument<T extends Document>(
     collection: string,
     filter: Partial<T>,
-    update: UpdateQuery<T>
+    update: UpdateQuery<T>,
+    options: FindOneAndUpdateOption = {}
   ): Promise<Document<T> | null> {
     if (!this.db) throw new Error(`DB IS NOT INITIALIZED`);
 
@@ -61,7 +67,7 @@ export abstract class BaseDbManager {
 
     const { value } = await this.db
       .collection(collection)
-      .findOneAndUpdate(filter, update, { returnOriginal: false });
+      .findOneAndUpdate(filter, update, { returnOriginal: false, ...options });
 
     return value || null;
   }

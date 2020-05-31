@@ -1,5 +1,5 @@
 import { Document } from './Document';
 export interface InventoryMeta extends Document {
-    category: 'ALL' | string;
+    categoryId: 'ALL' | string;
     itemsCount: number;
 }
