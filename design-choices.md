@@ -23,7 +23,7 @@ A "schema" defines what the Item or Container of this Category looks like. It co
 
 To create a new Item or Container, user must provide the id of Category this new Item or Container is part of. Then the values from their Category schema is matched with the data provided by the user.
 
-Every Item/Container must have a category.
+Every Item/Container must have a category. Thus, you need to create a category (if it doesn't already exist) before you create an item or a container.
 
 This service handles:
   - creating new category
@@ -84,6 +84,8 @@ docker-compose exec -T mongo sh -c 'mongorestore --archive' < mongodb.dump
 
 ---------
 
+* The curls.md file contains cURL requset for all the APIs. Since frontend is not complete, you can use these APIs.
+
 * Both the inventory item and container have unique id which can be treated as barcode
 
 * Please check out the models (Typescript interfaces) present in ./custom_modules/models/app to better understand the data design
@@ -100,9 +102,15 @@ docker-compose exec -T mongo sh -c 'mongorestore --archive' < mongodb.dump
 
 I am using Angular for client
 
-The client code is NOT COMPLETE, I did not had much time left for frontend.
+THE CLIENT CODE IS NOT COMPLETE, I did not had much time left for frontend.
 
-On frontend, I just implemented the server APIs in their service classes.
+On frontend, I just implemented the server APIs in their service classes and added 2 components, 1 for listing items and 1 for listing containers;
+
+You can not create a category or container or item on frontend
+The root container's info is also not shown.
+There is a lot left on frontend.
+
+However, Backend APIs are working and you can use the cURL commands to check the flow.
 
 
 `custom_modules`

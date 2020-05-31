@@ -65,7 +65,7 @@ services:
   client:
     build: client
     ports:
-      - '${CLIENT_PORT}:80'
+      - ${CLIENT_PORT}:80
 
 networks:
   default:

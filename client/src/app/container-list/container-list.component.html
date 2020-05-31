@@ -1,0 +1,6 @@
+<div>
+  <div *ngIf="containers.length && containers.length">
+    <app-container-card *ngFor="let container of containers" [container]="container" [containerIds]="containerIds">
+    </app-container-card>
+  </div>
+</div>

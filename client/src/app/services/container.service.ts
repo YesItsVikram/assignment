@@ -13,6 +13,7 @@ import {
   CreateContainerResponse,
   DeleteContainerResponse,
   MoveItemResponse,
+  MoveContainerRequest,
 } from '@custom_modules/models';
 import { environment } from 'src/environments/environment';
 import { Utils } from '../utils/Utils';
@@ -21,15 +22,15 @@ import { Utils } from '../utils/Utils';
   providedIn: 'root',
 })
 export class ContainerService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getContainers(
     params: GetContainersRequest
   ): Observable<GetContainersResponse> {
     return this.http.get<GetContainersResponse>(
       environment.ContainerServiceConstants.BASE_ROUTE +
-        environment.ContainerServiceConstants.PATHS.GET_CONTAINERS +
-        Utils.getQueryParamsFromObject(params)
+      environment.ContainerServiceConstants.PATHS.GET_CONTAINERS +
+      Utils.getQueryParamsFromObject(params)
     );
   }
 
@@ -38,8 +39,8 @@ export class ContainerService {
   ): Observable<GetRootContainerResponse> {
     return this.http.get<GetRootContainerResponse>(
       environment.ContainerServiceConstants.BASE_ROUTE +
-        environment.ContainerServiceConstants.PATHS.GET_ROOT_CONTAINER +
-        Utils.getQueryParamsFromObject(params)
+      environment.ContainerServiceConstants.PATHS.GET_ROOT_CONTAINER +
+      Utils.getQueryParamsFromObject(params)
     );
   }
 
@@ -48,7 +49,7 @@ export class ContainerService {
   ): Observable<CreateContainerResponse> {
     return this.http.post<CreateContainerResponse>(
       environment.ContainerServiceConstants.BASE_ROUTE +
-        environment.ContainerServiceConstants.PATHS.CREATE_CONTAINER,
+      environment.ContainerServiceConstants.PATHS.CREATE_CONTAINER,
       params,
       {
         headers: {
@@ -63,7 +64,7 @@ export class ContainerService {
   ): Observable<DeleteContainerResponse> {
     return this.http.post<DeleteContainerResponse>(
       environment.ContainerServiceConstants.BASE_ROUTE +
-        environment.ContainerServiceConstants.PATHS.DELETE_CONTAINER,
+      environment.ContainerServiceConstants.PATHS.DELETE_CONTAINER,
       params,
       {
         headers: {
@@ -74,11 +75,11 @@ export class ContainerService {
   }
 
   moveContainer(
-    params: MoveContainerResponse
+    params: MoveContainerRequest
   ): Observable<MoveContainerResponse> {
     return this.http.post<MoveContainerResponse>(
       environment.ContainerServiceConstants.BASE_ROUTE +
-        environment.ContainerServiceConstants.PATHS.MOVE_CONTAINER,
+      environment.ContainerServiceConstants.PATHS.MOVE_CONTAINER,
       params,
       {
         headers: {
@@ -91,7 +92,7 @@ export class ContainerService {
   moveItem(params: MoveItemRequest): Observable<MoveItemResponse> {
     return this.http.post<MoveItemResponse>(
       environment.ContainerServiceConstants.BASE_ROUTE +
-        environment.ContainerServiceConstants.PATHS.MOVE_ITEM,
+      environment.ContainerServiceConstants.PATHS.MOVE_ITEM,
       params,
       {
         headers: {

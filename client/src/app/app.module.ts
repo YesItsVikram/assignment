@@ -19,6 +19,8 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ContainerListComponent } from './container-list/container-list.component';
+import { ContainerCardComponent } from './container-card/container-card.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NavigationComponent,
     ItemCardComponent,
     ItemListComponent,
+    ContainerListComponent,
+    ContainerCardComponent,
   ],
   imports: [
     BrowserModule,
