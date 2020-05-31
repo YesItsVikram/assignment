@@ -31,10 +31,7 @@ export enum Routes {
   CREATE_CONTAINER = '/createContainer',
   DELETE_CONTAINER = '/deleteContainer',
 
-  ADD_ITEM = '/addItem',
   MOVE_ITEM = '/moveItem',
-
-  ADD_CONTAINER = '/addContainer',
   MOVE_CONTAINER = '/moveContainer',
 
   GET_ROOT_CONTAINER = '/getRootContainer',

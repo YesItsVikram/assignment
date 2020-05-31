@@ -11,7 +11,10 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2016",
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@models/*": ["src/app/models/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

@@ -9,5 +9,5 @@ interface ItemBase extends Document {
 interface ItemDetails {
     [key: string]: any;
 }
-export declare type Item = ItemBase & Exclude<ItemDetails, ItemBase>;
+export declare type Item = ItemBase & ItemDetails;
 export {};

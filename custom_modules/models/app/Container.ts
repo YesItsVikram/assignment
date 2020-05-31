@@ -1,9 +1,11 @@
 import { Document } from './Document';
+import { Holdable } from './ContainerCategory';
 
-type Holdable = 'CONTAINERS' | 'INVENTORY';
-
-export interface Container extends Document {
-  type: string;
+interface ContainerBase extends Document {
+  category: {
+    id: string;
+    kind: string;
+  };
 
   canHold: Holdable;
 
@@ -12,3 +14,9 @@ export interface Container extends Document {
 
   parentContainerId?: string;
 }
+
+interface ContainerDetails {
+  [key: string]: any;
+}
+
+export type Container = ContainerBase & ContainerDetails;

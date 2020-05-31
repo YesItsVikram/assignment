@@ -1,5 +1,5 @@
 export interface CategorySchema {
-  type: string | boolean | number | CategorySchema | any[];
+  type: 'string' | 'boolean' | 'number' | 'array';
   isRequired: boolean;
-  default: CategorySchema['type'] | null | undefined;
+  default?: any;
 }

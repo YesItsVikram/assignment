@@ -25,7 +25,7 @@ export class ResponseHandler {
   }
 
   // Can add encryption, check data format etc
-  static SendResponse(res: Response, data: any) {
+  static SendResponse<T = any>(res: Response, data: T) {
     res.send(data);
   }
 }

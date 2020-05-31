@@ -1,9 +1,31 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+import { Environment } from '@models/Environment';
 
-export const environment = {
-  production: false
+export const environment: Environment = {
+  production: false,
+
+  ContainerServiceConstants: {
+    BASE_ROUTE: 'http://localhost:8080',
+    PATHS: {
+      GET_CONTAINER: '/getContainer',
+      GET_CONTAINERS: '/getContainers',
+
+      CREATE_CONTAINER: '/createContainer',
+      DELETE_CONTAINER: '/deleteContainer',
+
+      MOVE_ITEM: '/moveItem',
+      MOVE_CONTAINER: '/moveContainer',
+
+      GET_ROOT_CONTAINER: '/getRootContainer',
+    },
+  },
+
+  InventoryServiceConstants: {
+    BASE_ROUTE: 'http://localhost:8081',
+    PATHS: {
+      GET_ITEM: '/getItem',
+      GET_ITEMS: '/getItems',
+    },
+  },
 };
 
 /*
